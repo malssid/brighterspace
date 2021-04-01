@@ -1,10 +1,9 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { Center, Heading } from "@chakra-ui/react"
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <img src="brighterspace.svg" width="500rem"/>
-    </div>
-  )
+    <Center>
+      <Heading>Home Page</Heading>
+    </Center>   
+  );
 }
