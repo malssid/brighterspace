@@ -21,7 +21,7 @@ export default function Home() {
         tristique tortor nulla nec erat. Aliquam porttitor erat ac sapien semper
         laoreet.
       </Text>
-      <Button color="blue.800">Login</Button>
+      <Button colorScheme="blue">Login</Button>
     </Flex>
   );
 }
