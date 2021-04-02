@@ -2,7 +2,7 @@ import "@fontsource/chivo/700.css";
 import "@fontsource/Overpass/400.css";
 
 import { Image, ChakraProvider } from "@chakra-ui/react";
-import theme from "../utils/theme";
+import theme from "../themes/theme";
 
 function MyApp({ Component, pageProps }) {
   return (
