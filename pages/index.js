@@ -1,12 +1,12 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text, Button } from "@chakra-ui/react";
 
 export default function Home() {
   return (
     <Flex direction="column" align="center">
-      <Heading size="3xl" mb="5" color="brand.lightblue">
+      <Heading size="4xl" mb="5" color="blue.50">
         This is a Heading
       </Heading>
-      <Text w="80%" color="brand.bluegreen">
+      <Text w="80%" mb="5" color="blue.200">
         Ut suscipit molestie pretium. Cras placerat tortor at nunc aliquet
         dictum. Aliquam erat volutpat. Ut feugiat a diam molestie pharetra.
         Curabitur nibh nibh, hendrerit nec enim in, consequat gravida ante.
@@ -21,6 +21,7 @@ export default function Home() {
         tristique tortor nulla nec erat. Aliquam porttitor erat ac sapien semper
         laoreet.
       </Text>
+      <Button color="blue.800">Login</Button>
     </Flex>
   );
 }
