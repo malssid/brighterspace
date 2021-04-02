@@ -1,21 +1,13 @@
-import { Box, Image, ChakraProvider, extendTheme } from "@chakra-ui/react";
+import "@fontsource/chivo/700.css";
+import "@fontsource/Overpass/400.css";
 
-const theme = extendTheme({
-  styles: {
-    global: {
-      body: {
-        bg: "#c0ddf2",
-      },
-    },
-  },
-});
+import { Image, ChakraProvider } from "@chakra-ui/react";
+import theme from "../utils/theme";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
-      <Box bg="#002147" w="100%" p={4}>
-        <Image src="brighterspace.svg" alt="logo" w="20rem"/>
-      </Box>
+      <Image src="brighterspacelogo.svg" alt="logo" w="25rem" p="6" />
       <Component {...pageProps} />
     </ChakraProvider>
   );
