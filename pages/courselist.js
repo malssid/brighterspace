@@ -1,13 +1,16 @@
-import { Box, Heading, Text, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import CourseCard from "../components/CourseCard";
 
 const courselist = ({ courses }) => {
   return (
     <Flex direction="column" align="center">
       {courses.map((course) => (
-        <Box boxShadow="lg" bg="blue.50" w="30%" p={4} color="blue.900" mb="4">
-          <Heading>{course.Name}</Heading>
-          <Text>{course.Description}</Text>
-        </Box>
+        <CourseCard
+          id={course.cid}
+          name={course.Name}
+          desc={course.Description}
+          term={course.Term}
+        />
       ))}
     </Flex>
   );
