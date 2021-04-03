@@ -7,7 +7,7 @@ export default function CourseCard({ id, name, desc, term }) {
       borderRadius="lg"
       boxShadow="lg"
       bg="blue.50"
-      w="15%"
+      w="50"
       p={4}
       color="blue.900"
       mb="4"
