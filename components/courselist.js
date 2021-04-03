@@ -1,23 +1,27 @@
 // TODO - Not at all a pretty page - but database connection is working!
+import {useState, useEffect} from 'react'
 
-export async function getStaticProps(context) {
-  const res = await fetch(`http://localhost:3000/api/courses`);
-  const data = await res.json();
-
-  return {
-    props: { data },
-  };
-}
 
 function CList(props) {
-  console.log(props.data);
+  
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    fetch(`/api/courses`)
+    .then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      setCourses(data);
+    })
+  }, [])
+
 
   return (
     <>
       {" "}
       List of classes:{" "}
-      {props.data.map((item) => (
-        <p>{item.Name}</p>
+      {courses.map((item) => (
+        <p key={item.Name}>{item.Name}</p>
       ))}{" "}
     </>
   );
