@@ -1,4 +1,5 @@
 import { Flex, Heading, Text, Button } from "@chakra-ui/react";
+import CList from "../components/courselist"
 
 export default function Home() {
   return (
@@ -21,7 +22,7 @@ export default function Home() {
         tristique tortor nulla nec erat. Aliquam porttitor erat ac sapien semper
         laoreet.
       </Text>
-      <Button colorScheme="blue">Login</Button>
+      <CList />
     </Flex>
   );
 }
