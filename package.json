@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "set -o allexport; source .env.local; set +o allexport; next dev",
+    "load": "set -o allexport; source .env.local; set +o allexport;",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
