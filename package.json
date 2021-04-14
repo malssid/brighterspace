@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "set -o allexport; source .env.local; set +o allexport; next dev",
     "build": "next build",
     "start": "next start"
   },
@@ -15,8 +15,10 @@
     "@fontsource/overpass": "^4.2.2",
     "framer-motion": "^4.1.2",
     "next": "10.1.2",
+    "next-auth": "^3.14.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "serverless-mysql": "^1.5.4"
+    "serverless-mysql": "^1.5.4",
+    "sha.js": "^2.4.11"
   }
 }
