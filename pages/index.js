@@ -30,9 +30,10 @@ export default function Home({courses}) {
 
   return (
     <Flex direction="column" align="center">
-      {courses.map((course) => (
+      {courses.map((course, idx) => (
+        
         <CourseCard
-          id={course.cid}
+          key={idx}
           name={course.Name}
           desc={course.Description}
           term={course.Term}

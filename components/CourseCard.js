@@ -1,9 +1,8 @@
 import { Box, Heading, Text, Badge } from "@chakra-ui/react";
 
-export default function CourseCard({ id, name, desc, term }) {
+export default function CourseCard({ name, desc, term }) {
   return (
     <Box
-      key={id}
       borderRadius="lg"
       boxShadow="lg"
       bg="blue.50"
