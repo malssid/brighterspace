@@ -1,17 +1,16 @@
 import "@fontsource/chivo/700.css";
 import "@fontsource/Overpass/400.css";
 
-import { Image, Box, ChakraProvider } from "@chakra-ui/react";
-import { Provider } from 'next-auth/client'
+import { ChakraProvider } from "@chakra-ui/react";
+import Navbar from "../components/Navbar"
+import { Provider } from "next-auth/client";
 import theme from "../styles/theme";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider session={pageProps.session} >
+    <Provider session={pageProps.session}>
       <ChakraProvider theme={theme}>
-        <Box w="100vw">
-          <Image src="/brighterspacelogo.svg" alt="logo" w="25rem" p="6" />
-        </Box>
+        <Navbar />
         <Component {...pageProps} />
       </ChakraProvider>
     </Provider>
