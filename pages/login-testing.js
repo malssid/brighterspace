@@ -1,5 +1,4 @@
 import { Flex, Heading, Text, Button } from "@chakra-ui/react";
-
 import { getSession, useSession, signIn, signOut } from 'next-auth/client'
 
 export default function Home(props) {
