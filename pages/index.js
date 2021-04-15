@@ -1,26 +1,63 @@
-import { Flex, Heading, Text, Button } from "@chakra-ui/react";
+import { Flex, Heading, Text, Button, Skeleton, Stack } from "@chakra-ui/react";
+import CourseCard from "../components/CourseCard";
 
-export default function Home() {
+import { getSession, useSession } from 'next-auth/client'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { query } from "../lib/db"
+
+
+export default function Home({courses}) {
+  const router = useRouter();
+  const [ session, loading ] = useSession()
+
+  useEffect(() => {
+    if(!session){
+      router.push('/account/sign-in')
+    }
+  }, [])
+
+  // @TODO: adjust Skeleton once courseCard is final
+  if(!session){
+    return <>
+      <Stack>
+        <Skeleton height="20px" />
+        <Skeleton height="20px" />
+        <Skeleton height="20px" />
+      </Stack> 
+    </>
+  }
+
   return (
     <Flex direction="column" align="center">
-      <Heading size="4xl" mb="5" color="blue.50">
-        This is a Heading
-      </Heading>
-      <Text w="80%" mb="5" color="blue.200">
-        Ut suscipit molestie pretium. Cras placerat tortor at nunc aliquet
-        dictum. Aliquam erat volutpat. Ut feugiat a diam molestie pharetra.
-        Curabitur nibh nibh, hendrerit nec enim in, consequat gravida ante.
-        Suspendisse consequat libero tellus. Sed ex tellus, lobortis sit amet
-        justo nec, tempor ultrices lacus. Vestibulum ante ipsum primis in
-        faucibus orci luctus et ultrices posuere cubilia curae; Donec porttitor
-        nulla non nisi iaculis dapibus. Sed vulputate quis dolor et placerat.
-        Vestibulum id nisi rutrum, pulvinar massa et, faucibus purus. Donec
-        malesuada, nunc et elementum suscipit, nibh massa imperdiet dui, a
-        varius risus turpis in diam. Duis ultricies malesuada pharetra. Cras
-        tristique, purus ac lobortis blandit, risus tortor ornare nulla, eu
-        tristique tortor nulla nec erat. Aliquam porttitor erat ac sapien semper
-        laoreet.
-      </Text>
+      {courses.map((course) => (
+        <CourseCard
+          id={course.cid}
+          name={course.Name}
+          desc={course.Description}
+          term={course.Term}
+        />
+      ))}
     </Flex>
   );
+}
+
+export async function getServerSideProps(context) {
+
+  const session = await getSession(context)
+
+  if(!session){
+    return { props: {  }};
+  }
+
+  const courses = await query("SELECT courses.cid as cid, Name, Description, Term FROM memberships, courses WHERE memberships.pid = ? AND memberships.cid = courses.cid", 
+  [session.user.id])
+
+
+  return {
+    props: {
+      courses,
+      session
+    },
+  };
 }

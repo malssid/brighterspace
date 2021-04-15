@@ -26,6 +26,7 @@ export default NextAuth({
       },
      async authorize(credentials) {
 
+        // @TODO - add salt to the hash
         credentials.password = shajs('sha256').update(credentials.password).digest('hex')
 
         console.log(credentials.password)
@@ -108,7 +109,7 @@ export default NextAuth({
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
   pages: {
-    // signIn: '/auth/signin',  // Displays signin buttons
+    signIn: '/account/sign-in',  // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
@@ -123,6 +124,20 @@ export default NextAuth({
     // async redirect(url, baseUrl) { return baseUrl },
     // async session(session, user) { return session },
     // async jwt(token, user, account, profile, isNewUser) { return token }
+    jwt: async (token, user, account, profile, isNewUser) => {
+      //  "user" parameter is the object received from "authorize"
+      //  "token" is being send below to "session" callback...
+      //  ...so we set "user" param of "token" to object from "authorize"...
+      //  ...and return it...
+      user && (token.user = user);
+      return Promise.resolve(token)   // ...here
+    },
+    session: async (session, user, sessionToken) => {
+        //  "session" is current session object
+        //  below we set "user" param of "session" to value received from "jwt" callback
+        session.user = user.user;
+        return Promise.resolve(session)
+  }
   },
 
   // Events are useful for logging
