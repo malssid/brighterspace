@@ -29,11 +29,11 @@ export default function Home({courses}) {
   }
 
   return (
-    <Flex direction="column" align="center">
+    <Flex mt={10} direction="column" align="center">
       {courses.map((course, idx) => (
-        
         <CourseCard
           key={idx}
+          cid={course.cid}
           name={course.Name}
           desc={course.Description}
           term={course.Term}
