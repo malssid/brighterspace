@@ -32,14 +32,6 @@ export default function Navbar() {
       >
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <Flex>
-            <chakra.a
-              href="/"
-              title="Choc Home Page"
-              display="flex"
-              alignItems="center"
-            >
-              <VisuallyHidden>Choc</VisuallyHidden>
-            </chakra.a>
             <Image src="/brighterspacelogo.svg" alt="logo" w="22rem" p="3" />
           </Flex>
           <HStack display="flex" alignItems="center" spacing={1}>
