@@ -19,12 +19,12 @@ export default function CourseHome({ course, announcements, membership }) {
     <>
       {membership.length > 0 ? (
         <Flex mt={10} direction="column" align="center">
-          <Heading size="2xl" color="blue.50">
+          <Heading size="4xl" color="blue.50" mb={4}>
             {course.Name}
           </Heading>
           <Text color="blue.100">{course.Description}</Text>
-          <Flex direction="column" align="center">
-            <Heading color="blue.50">Announcements </Heading>
+          <Flex direction="column" align="center" mt={10}>
+            <Heading size="2xl" color="blue.50" mb={4}>Announcements </Heading>
             <List>
               {announcements.map((data, index) => (
                 <Announcement key={index} data={data} />
@@ -51,8 +51,6 @@ export async function getServerSideProps(context) {
     "SELECT cid, pid, role FROM memberships WHERE pid = ? AND cid = ?",
     [session.user.id, context.query.cid]
   );
-
-  console.log(membership);
 
   const announcements = await query(
     "SELECT aid, pid, cid, title, body FROM announcements WHERE cid = ?",

@@ -7,7 +7,7 @@ export default function CourseCard({ name, cid, desc, term }) {
       <Box
         borderRadius="lg"
         boxShadow="lg"
-        bg="blue.100"
+        bg="blue.50"
         w="50"
         p={4}
         color="blue.900"
@@ -16,7 +16,7 @@ export default function CourseCard({ name, cid, desc, term }) {
       >
         <Heading>{name}</Heading>
         <Text>{desc}</Text>
-        <Badge borderRadius="full" py={1} px={2} bg="blue.200">
+        <Badge borderRadius="full" py={1} px={2} color="blue.800" bg="blue.100">
           {term}
         </Badge>
       </Box>
