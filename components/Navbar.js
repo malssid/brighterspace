@@ -1,41 +1,38 @@
 import React from "react";
-import NextLink from "next/link"
+import NextLink from "next/link";
 import { useSession, signOut } from "next-auth/client";
-import { Box, Image, Link, Button } from "@chakra-ui/react";
+import { Box, Image, Link, Button, Flex, Spacer } from "@chakra-ui/react";
 
 const Navbar = () => {
   const [session, loading] = useSession();
 
   return (
     <div>
-      <Box
-        backgroundColor="blue.500"
-        width="100%"
-        height="100px"
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Image src="/brighterspacelogo.svg" alt="logo" w="25rem" p="6" />
-        <Box display="block" mr="50px">
-          <NextLink href="/" as='/' passHref>
-            <Link mr="50px" fontSize="xl" color="blue.900">
-              Courses
-            </Link>
-          </NextLink>
-
-          {session && (
+      <Flex align="center">
+        <Box p="2">
+          <Image src="/brighterspacelogo.svg" alt="logo" w="22rem" p="3" />
+        </Box>
+        <Spacer />
+        <Box mr={10}>
+          <NextLink href="/" as="/" passHref>
             <Button
-              variant="solid"
-              size="md"
-              color="blue.900"
-              onClick={signOut}
+              mr="40px"
+              color="blue.50"
+              size="lg"
+              colorScheme="whiteAlpha"
+              variant="ghost"
+              fontSize="30px"
             >
+              Courses
+            </Button>
+          </NextLink>
+          {session && (
+            <Button fontSize="30px" color="blue.50" size="lg" variant="ghost" colorScheme="whiteAlpha" onClick={signOut}>
               Sign Out
             </Button>
           )}
         </Box>
-      </Box>
+      </Flex>
     </div>
   );
 };

@@ -8,8 +8,11 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "blue.800",
+        bg: "blue.900",
       },
+      a: {
+        textDecor: "none"
+      }
     },
   },
 });
