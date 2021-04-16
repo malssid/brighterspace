@@ -14,7 +14,7 @@ const Navbar = () => {
         </Box>
         <Spacer />
         <Box mr={10}>
-          <NextLink href="/" as="/" passHref>
+          <NextLink href="/" passHref>
             <Button
               mr="40px"
               color="blue.50"
