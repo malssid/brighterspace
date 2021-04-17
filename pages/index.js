@@ -15,7 +15,7 @@ export default function Home({courses}) {
     if(!session){
       router.push('/account/sign-in')
     }
-  }, [])
+  }, [loading])
 
   // @TODO: adjust Skeleton once courseCard is final
   if(!session){

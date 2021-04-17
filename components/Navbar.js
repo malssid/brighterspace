@@ -13,11 +13,12 @@ import {
   IconButton,
   CloseButton,
   Image,
+  Heading
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
-export default function Navbar() {
+export default function Navbar({pageTitle}) {
   const [session, loading] = useSession();
   const mobileNav = useDisclosure();
 
@@ -34,7 +35,11 @@ export default function Navbar() {
           <Flex>
             <Image src="/brighterspacelogo.svg" alt="logo" w="22rem" p="3" />
           </Flex>
+          <Box>
+            <Heading color="white" display={{ base: "none", md: "block" }}>{pageTitle}</Heading>
+          </Box>
           <HStack display="flex" alignItems="center" spacing={1}>
+          {session && (
             <HStack
               spacing={1}
               mr={1}
@@ -62,6 +67,7 @@ export default function Navbar() {
                 </Button>
               </NextLink>
             </HStack>
+            )}
             {session && (
               <Button
                 variant="ghost"
