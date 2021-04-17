@@ -86,7 +86,7 @@ export async function getServerSideProps(context) {
   );
 
   const announcements = await query(
-    "SELECT aid, pid, cid, title, body FROM announcements WHERE cid = ?",
+    "SELECT * FROM announcements WHERE cid = ?",
     [context.query.cid]
   );
 

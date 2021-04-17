@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
+        <title>{pageTitle || "Brighterspace"}</title>
       </Head>
       <Provider session={pageProps.session}>
         <ChakraProvider theme={theme}>
