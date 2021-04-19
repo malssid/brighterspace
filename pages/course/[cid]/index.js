@@ -15,9 +15,10 @@ import { useSession, getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 
 import { Announcement, NewAnnouncement } from "../../../components/Announcements/Announcement";
+import AssignmentCard from "../../../components/Assignments/AssignmentCard"
 import { query } from "../../../lib/db";
 
-export default function CourseHome({ course, announcements, membership }) {
+export default function CourseHome({ course, announcements, membership, assignments }) {
   const router = useRouter();
   const [session, loading] = useSession();
 
@@ -56,6 +57,8 @@ export default function CourseHome({ course, announcements, membership }) {
     )
   }
 
+  console.log(assignments)
+
   return (
     <>
       <SimpleGrid columns={{sm: 1, md: 2, lg: 3}} spacing="10px">
@@ -88,6 +91,13 @@ export default function CourseHome({ course, announcements, membership }) {
         </Box>
         <Box bgColor="whiteAlpha.100">
           <Heading size="2xl" color="blue.50">Assignments</Heading>
+
+          {/* <AssignmentCard cid={course.cid} assignment={assignments[0]} /> */}
+
+          {assignments.map((item, key) => 
+             <AssignmentCard key={key} cid={course.cid} assignment={item} />
+          )}
+
         </Box>
 
           
@@ -113,6 +123,12 @@ export async function getServerSideProps(context) {
     [context.query.cid]
   );
 
+  const assignments = await query(
+    "SELECT * FROM assignments WHERE cid = ? ORDER BY duedate ASC"
+  , [context.query.cid])
+
+  console.log(assignments)
+
   const course = await query("SELECT * FROM courses WHERE courses.cid = ?", [
     context.query.cid,
   ]);
@@ -122,6 +138,7 @@ export async function getServerSideProps(context) {
       course: course[0] || null,
       announcements,
       membership,
+      assignments
     },
   };
 }
