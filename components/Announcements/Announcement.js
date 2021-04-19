@@ -33,14 +33,14 @@ export function Announcement({ data }) {
     <Flex
       borderRadius="lg"
       boxShadow="lg"
-      bg="blue.100"
+      bg="blue.50"
       w="80"
       p={4}
       color="blue.900"
       mb="4"
-      cursor="pointer"
       justify="center"
       align="center"
+      direction="column"
     >
       <Text>{data.body}</Text>
       <Badge mt={2} borderRadius="full" py={1} px={2} bg="blue.200">{data.dateposted}</Badge>
