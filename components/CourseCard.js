@@ -8,8 +8,8 @@ export default function CourseCard({ name, cid, desc, term }) {
         borderRadius="lg"
         boxShadow="lg"
         bg="blue.50"
-        w="50%"
         p={4}
+        w="100%"
         color="blue.900"
         mb="4"
         cursor="pointer"
