@@ -1,35 +1,46 @@
-import { Flex, Heading, Text, Button, Skeleton, Stack } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Text,
+  Button,
+  Skeleton,
+  Stack,
+  SimpleGrid,
+  Center
+} from "@chakra-ui/react";
 import CourseCard from "../components/CourseCard";
 
-import { getSession, useSession } from 'next-auth/client'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { query } from "../lib/db"
+import { getSession, useSession } from "next-auth/client";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { query } from "../lib/db";
 
-
-export default function Home({courses}) {
+export default function Home({ courses }) {
   const router = useRouter();
-  const [ session, loading ] = useSession()
+  const [session, loading] = useSession();
 
   useEffect(() => {
-    if(!session){
-      router.push('/account/sign-in')
+    if (!session) {
+      router.push("/account/sign-in");
     }
-  }, [loading])
+  }, [loading]);
 
   // @TODO: adjust Skeleton once courseCard is final
-  if(!session){
-    return <>
-      <Stack>
-        <Skeleton height="20px" />
-        <Skeleton height="20px" />
-        <Skeleton height="20px" />
-      </Stack> 
-    </>
+  if (!session) {
+    return (
+      <>
+        <Stack>
+          <Skeleton height="20px" />
+          <Skeleton height="20px" />
+          <Skeleton height="20px" />
+        </Stack>
+      </>
+    );
   }
 
   return (
-    <Flex mt={10} direction="column" align="center">
+    <Center>
+      <SimpleGrid columns={{sm: 1, lg: 2}} spacing="10px">
       {courses.map((course, idx) => (
         <CourseCard
           key={idx}
@@ -39,26 +50,28 @@ export default function Home({courses}) {
           term={course.Term}
         />
       ))}
-    </Flex>
+    </SimpleGrid>
+    </Center>
+    
   );
 }
 
 export async function getServerSideProps(context) {
+  const session = await getSession(context);
 
-  const session = await getSession(context)
-
-  if(!session){
-    return { props: {  }};
+  if (!session) {
+    return { props: {} };
   }
 
-  const courses = await query("SELECT courses.cid as cid, Name, Description, Term FROM memberships, courses WHERE memberships.pid = ? AND memberships.cid = courses.cid", 
-  [session.user.id])
-
+  const courses = await query(
+    "SELECT courses.cid as cid, Name, Description, Term FROM memberships, courses WHERE memberships.pid = ? AND memberships.cid = courses.cid",
+    [session.user.id]
+  );
 
   return {
     props: {
       courses,
-      session
+      session,
     },
   };
 }
