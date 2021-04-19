@@ -8,11 +8,13 @@ import {
   AlertIcon,
   Stack,
   Skeleton,
+  SimpleGrid,
+  Box
 } from "@chakra-ui/react";
 import { useSession, getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 
-import Announcement from "../../../components/Announcement";
+import { Announcement, NewAnnouncement } from "../../../components/Announcements/Announcement";
 import { query } from "../../../lib/db";
 
 export default function CourseHome({ course, announcements, membership }) {
@@ -56,22 +58,40 @@ export default function CourseHome({ course, announcements, membership }) {
 
   return (
     <>
-      <Flex mt={10} direction="column" align="center">
-        <Heading size="4xl" color="blue.50" mb={4}>
-          {course.Name}
-        </Heading>
-        <Text color="blue.100">{course.Description}</Text>
-        <Flex direction="column" align="center" mt={10}>
-          <Heading size="2xl" color="blue.50" mb={4}>
-            Announcements{" "}
+      <SimpleGrid columns={{sm: 1, md: 2, lg: 3}} spacing="10px">
+        <Box bgColor="whiteAlpha.100">
+          <Heading size="4xl" color="blue.50" mb={4}>
+            {course.Name}
           </Heading>
-          <List>
-            {announcements.map((data, index) => (
-              <Announcement key={index} data={data} />
-            ))}
-          </List>
-        </Flex>
-      </Flex>
+          <Text color="blue.100">{course.Description}</Text>
+          <Text color="blue.100">Button/Link to Assignments</Text>
+          <Text color="blue.100">Button/Link to Classlist</Text>
+          <Text color="blue.100">Button/Link to Gradebook</Text>
+
+
+          <Text color="blue.100">Button/Link to Discussion posts?</Text>
+
+          <Text color="blue.100">Button/Link to Course content?</Text>
+        </Box>
+        <Box bgColor="whiteAlpha.100">
+          <Flex direction="column" align="center" mt={10}>
+            <Heading size="2xl" color="blue.50" mb={4}>
+              Announcements{" "}
+            </Heading>
+            {membership[0].role === 1 && <NewAnnouncement cid={course.cid} pid={session.user.pid} />}
+            <List>
+              {announcements.map((data, index) => (
+                <Announcement key={index} data={data} />
+              ))}
+            </List>
+          </Flex>
+        </Box>
+        <Box bgColor="whiteAlpha.100">
+          <Heading size="2xl" color="blue.50">Assignments</Heading>
+        </Box>
+
+          
+      </SimpleGrid>
     </>
   );
 }
@@ -89,7 +109,7 @@ export async function getServerSideProps(context) {
   );
 
   const announcements = await query(
-    "SELECT * FROM announcements WHERE cid = ?",
+    "SELECT * FROM announcements WHERE cid = ? ORDER BY dateposted DESC",
     [context.query.cid]
   );
 
