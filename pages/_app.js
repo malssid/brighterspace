@@ -1,5 +1,5 @@
-import "@fontsource/chivo/700.css";
-import "@fontsource/Overpass/400.css";
+import "@fontsource/chivo/";
+import "@fontsource/Overpass/";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import Navbar from "../components/Navbar"
