@@ -16,11 +16,17 @@ export default function CourseCard({ name, cid, desc, term }) {
       >
         <Heading textAlign="center">{name}</Heading>
         <Text textAlign="center">{desc}</Text>
-        <Center><Badge borderRadius="full" py={1} px={2} color="blue.800" bg="blue.100">
-          {term}
-        </Badge>
+        <Center>
+          <Badge
+            borderRadius="full"
+            py={1}
+            px={2}
+            color="blue.800"
+            bg="blue.100"
+          >
+            {term}
+          </Badge>
         </Center>
-        
       </Box>
     </Link>
   );
