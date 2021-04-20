@@ -39,8 +39,9 @@ export default function Home({ courses }) {
   }
 
   return (
-    <Center mt={4}>
-      <SimpleGrid columns={{sm: 1, lg: 2}} spacing="10px">
+    <Center mt={4}>     
+      {/* <SimpleGrid columns={{sm: 1, lg: 2}} spacing="10px"> */}
+        <SimpleGrid minChildWidth="200px" spacing="10px">
       {courses.map((course, idx) => (
         <CourseCard
           key={idx}

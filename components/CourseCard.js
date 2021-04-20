@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Badge } from "@chakra-ui/react";
+import { Box, Heading, Text, Badge, Center } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function CourseCard({ name, cid, desc, term }) {
@@ -14,11 +14,13 @@ export default function CourseCard({ name, cid, desc, term }) {
         mb="4"
         cursor="pointer"
       >
-        <Heading>{name}</Heading>
-        <Text>{desc}</Text>
-        <Badge borderRadius="full" py={1} px={2} color="blue.800" bg="blue.100">
+        <Heading textAlign="center">{name}</Heading>
+        <Text textAlign="center">{desc}</Text>
+        <Center><Badge borderRadius="full" py={1} px={2} color="blue.800" bg="blue.100">
           {term}
         </Badge>
+        </Center>
+        
       </Box>
     </Link>
   );
