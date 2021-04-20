@@ -10,9 +10,11 @@ import {
   Skeleton,
   SimpleGrid,
   Box,
+  Button,
 } from "@chakra-ui/react";
 import { useSession, getSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import Link from 'next/link'
 
 import {
   Announcement,
@@ -75,8 +77,9 @@ export default function CourseHome({
             {course.Name}
           </Heading>
           <Text color="blue.100">{course.Description}</Text>
-          <Text color="blue.100">Button/Link to Assignments</Text>
-          <Text color="blue.100">Button/Link to Classlist</Text>
+
+          <Link href={`/course/${course.cid}/roster`}><Button>Roster</Button></Link>
+
           <Text color="blue.100">Button/Link to Gradebook</Text>
 
           <Text color="blue.100">Button/Link to Discussion posts?</Text>
