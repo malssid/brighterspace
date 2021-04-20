@@ -78,7 +78,7 @@ export default function CourseHome({
           </Heading>
           <Text color="blue.100">{course.Description}</Text>
 
-          <Link href={`/course/${course.cid}/roster`}><Button>Roster</Button></Link>
+          <Link href={`/course/${course.cid}/roster`}><a><Button>Roster</Button></a></Link>
 
           <Text color="blue.100">Button/Link to Gradebook</Text>
 
