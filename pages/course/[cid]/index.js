@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useSession, getSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import Link from 'next/link'
+import Link from "next/link";
 
 import {
   Announcement,
@@ -67,8 +67,6 @@ export default function CourseHome({
     );
   }
 
-  console.log(assignments);
-
   return (
     <>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="10px">
@@ -78,7 +76,11 @@ export default function CourseHome({
           </Heading>
           <Text color="blue.100">{course.Description}</Text>
 
-          <Link href={`/course/${course.cid}/roster`}><a><Button>Roster</Button></a></Link>
+          <Link href={`/course/${course.cid}/roster`}>
+            <a>
+              <Button>Roster</Button>
+            </a>
+          </Link>
 
           <Text color="blue.100">Button/Link to Gradebook</Text>
 
@@ -106,9 +108,8 @@ export default function CourseHome({
             <Heading size="2xl" color="blue.50" mb={4}>
               Assignments
             </Heading>
-
+                
             {/* <AssignmentCard cid={course.cid} assignment={assignments[0]} /> */}
-
             {assignments.map((item, key) => (
               <AssignmentCard key={key} cid={course.cid} assignment={item} />
             ))}
@@ -140,8 +141,6 @@ export async function getServerSideProps(context) {
     "SELECT * FROM assignments WHERE cid = ? ORDER BY duedate ASC",
     [context.query.cid]
   );
-
-  console.log(assignments);
 
   const course = await query("SELECT * FROM courses WHERE courses.cid = ?", [
     context.query.cid,

@@ -68,8 +68,6 @@ export function NewAnnouncement({ cid }) {
       body: JSON.stringify({ cid, body }),
     });
 
-    console.log(result);
-
     if (result.status === 200) {
       isPosted(true);
       setTimeout(() => {
