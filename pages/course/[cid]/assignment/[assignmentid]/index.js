@@ -23,9 +23,17 @@ import {
   Flex,
   Box,
   Center,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
 } from "@chakra-ui/react";
 
-export default function Assignment({ assignment, membership }) {
+export default function Assignment({ assignment, membership, submissions }) {
   const router = useRouter();
   const [session, loading] = useSession();
   const [submissionField, setSubmissionField] = useState("");
@@ -39,18 +47,17 @@ export default function Assignment({ assignment, membership }) {
   }, []);
 
   //@TODO: Client side valdation (e.g., do not accept empty work)
-  async function submitWork(){
-
+  async function submitWork() {
     const result = await fetch(`/api/assignments/submit`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         text: submissionField,
-        assnid: assignment.assnid
-      })
-    })
+        assnid: assignment.assnid,
+      }),
+    });
 
     setSubmissionStatus(result.status);
   }
@@ -82,10 +89,20 @@ export default function Assignment({ assignment, membership }) {
         </Text>
       </Flex>
       <Center>
-      {submissionStatus === 200 && <><Box color="black"><Alert status="success"><AlertIcon />Your work was succesfully submitted!</Alert></Box><br /></>}  
+        {submissionStatus === 200 && (
+          <>
+            <Box color="black">
+              <Alert status="success">
+                <AlertIcon />
+                Your work was succesfully submitted!
+              </Alert>
+            </Box>
+            <br />
+          </>
+        )}
       </Center>
       <Center color="blue.50" mt={4}>
-          {assignment.submissiontype === "BOTH" && (
+        {assignment.submissiontype === "BOTH" && (
           <Textarea
             size="lg"
             bg="blue.50"
@@ -98,10 +115,46 @@ export default function Assignment({ assignment, membership }) {
         )}
       </Center>
       <Center>
-        <Button leftIcon={<ArrowUpIcon />} size="lg" mt={5} onClick={submitWork}>
+        <Button
+          leftIcon={<ArrowUpIcon />}
+          size="lg"
+          mt={5}
+          onClick={submitWork}
+        >
           Submit/Save
         </Button>
       </Center>
+      {membership[0].role === 1 && (
+        <>
+          <Center>
+            <Heading color="blue.50" mt={10}>
+              Submissions
+            </Heading>
+          </Center>
+          <Box p="10px" mt={2} color="blue.50">
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th color="blue.50">Name</Th>
+                  <Th color="blue.50">Dated Submitted</Th>
+                  <Th color="blue.50">Submission</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {submissions.map((student, key) => (
+                  <Tr key={key}>
+                    <Td>
+                      {student.First_name} {student.Last_name}
+                    </Td>
+                    <Td>{student.date}</Td>
+                    <Td>{student.body}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </Box>{" "}
+        </>
+      )}
     </>
   );
 }
@@ -123,12 +176,16 @@ export async function getServerSideProps(context) {
     [context.query.cid, context.query.assignmentid]
   );
 
-  console.log(assignment);
+  const submissions = await query(
+    "SELECT First_name, Last_name, date, body FROM submissions, people WHERE assnid = ? AND submissions.pid = people.pid ORDER BY date DESC",
+    [context.query.assignmentid]
+  );
 
   return {
     props: {
       assignment: assignment[0],
       membership,
+      submissions,
     },
   };
 }
