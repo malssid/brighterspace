@@ -30,11 +30,30 @@ export default function Assignment({ assignment, membership }) {
   const [session, loading] = useSession();
   const [submissionField, setSubmissionField] = useState("");
 
+  const [submissionStatus, setSubmissionStatus] = useState(undefined);
+
   useEffect(() => {
     if (!session && !loading) {
       router.push("/account/sign-in");
     }
   }, []);
+
+  //@TODO: Client side valdation (e.g., do not accept empty work)
+  async function submitWork(){
+
+    const result = await fetch(`/api/assignments/submit`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: submissionField,
+        assnid: assignment.assnid
+      })
+    })
+
+    setSubmissionStatus(result.status);
+  }
 
   // @TODO: Make an functional error compontent, with some helpful hints/contact us
   if (membership.length === 0) {
@@ -62,8 +81,11 @@ export default function Assignment({ assignment, membership }) {
           {assignment.body}
         </Text>
       </Flex>
+      <Center>
+      {submissionStatus === 200 && <><Box color="black"><Alert status="success"><AlertIcon />Your work was succesfully submitted!</Alert></Box><br /></>}  
+      </Center>
       <Center color="blue.50" mt={4}>
-        {assignment.submissiontype === "BOTH" && (
+          {assignment.submissiontype === "BOTH" && (
           <Textarea
             size="lg"
             bg="blue.50"
@@ -76,7 +98,7 @@ export default function Assignment({ assignment, membership }) {
         )}
       </Center>
       <Center>
-        <Button leftIcon={<ArrowUpIcon />} size="lg" mt={5}>
+        <Button leftIcon={<ArrowUpIcon />} size="lg" mt={5} onClick={submitWork}>
           Submit/Save
         </Button>
       </Center>
