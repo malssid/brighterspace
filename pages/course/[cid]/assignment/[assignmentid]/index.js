@@ -2,6 +2,7 @@ import { query } from "../../../../../lib/db";
 import { useSession, getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { ArrowUpIcon, CheckIcon } from "@chakra-ui/icons";
 
 import {
   Heading,
@@ -21,7 +22,7 @@ import {
   AlertIcon,
   Flex,
   Box,
-  Center
+  Center,
 } from "@chakra-ui/react";
 
 export default function Assignment({ assignment, membership }) {
@@ -70,8 +71,14 @@ export default function Assignment({ assignment, membership }) {
             w="90%"
             fontSize="15px"
             onChange={(e) => setSubmissionField(e.target.value)}
+            placeholder="Type your answer here..."
           ></Textarea>
         )}
+      </Center>
+      <Center>
+        <Button leftIcon={<ArrowUpIcon />} size="lg" mt={5}>
+          Submit/Save
+        </Button>
       </Center>
     </>
   );
