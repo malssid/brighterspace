@@ -20,6 +20,7 @@ import {
   Announcement,
   NewAnnouncement,
 } from "../../../components/Announcements/Announcement";
+import NewAssignment from "../../../components/Assignments/NewAssignment";
 import AssignmentCard from "../../../components/Assignments/AssignmentCard";
 import { query } from "../../../lib/db";
 
@@ -94,7 +95,7 @@ export default function CourseHome({
               Announcements{" "}
             </Heading>
             {membership[0].role === 1 && (
-              <NewAnnouncement cid={course.cid} pid={session.user.pid} />
+              <NewAnnouncement cid={course.cid} />
             )}
             <List>
               {announcements.map((data, index) => (
@@ -108,7 +109,9 @@ export default function CourseHome({
             <Heading size="2xl" color="blue.50" mb={4}>
               Assignments
             </Heading>
-                
+            {membership[0].role === 1 && (
+              <NewAssignment cid={course.cid} />
+            )}
             {/* <AssignmentCard cid={course.cid} assignment={assignments[0]} /> */}
             {assignments.map((item, key) => (
               <AssignmentCard key={key} cid={course.cid} assignment={item} />
@@ -141,6 +144,8 @@ export async function getServerSideProps(context) {
     "SELECT * FROM assignments WHERE cid = ? ORDER BY duedate ASC",
     [context.query.cid]
   );
+
+  console.log(assignments)
 
   const course = await query("SELECT * FROM courses WHERE courses.cid = ?", [
     context.query.cid,
