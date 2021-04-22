@@ -1,46 +1,48 @@
 import { query } from "../../../lib/db";
-import { getSession } from 'next-auth/client'
+import { getSession } from "next-auth/client";
 
-export default async function(req, res){
-    
-    const session = await getSession({ req })
+export default async function (req, res) {
+  const session = await getSession({ req });
 
-    if (session) {
-        // Signed in
+  if (session) {
+    // Signed in
 
-        // Determine if userid has privelges to post annocuments in the cid
-    
-        const memberships = await query("SELECT * FROM memberships WHERE pid = ? AND cid = ? LIMIT 1", 
-            [session.user.id, req.body.cid])
+    // Determine if userid has privelges to post annocuments in the cid
 
-        // console.log([session.user.id, req.body.cid])
+    const memberships = await query(
+      "SELECT * FROM memberships WHERE pid = ? AND cid = ? LIMIT 1",
+      [session.user.id, req.body.cid]
+    );
 
-        const role = memberships[0]?.role ?? null;
+    // console.log([session.user.id, req.body.cid])
 
-        // console.log(memberships)
+    const role = memberships[0]?.role ?? null;
 
-        if(role === 1){
-            const result = await query("INSERT INTO `announcements` (`aid`, `pid`, `cid`, `dateposted`, `title`, `body`) VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, NULL, ?)", 
-                [session.user.id, req.body.cid, req.body.body])
+    // console.log(memberships)
 
-            if(result){
-                res.json({status: 200})
-            }else{
-                res.status(500);
-                res.json({status: 500, reason: "Unknown database error"})
+    if (role === 1) {
+      const result = await query(
+        "INSERT INTO `announcements` (`aid`, `pid`, `cid`, `dateposted`, `title`, `body`) VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, NULL, ?)",
+        [session.user.id, req.body.cid, req.body.body]
+      );
 
-            }         
-
-        }else{
-            res.status(403)
-            res.json({status: 403, reason: "You do not have the correct permissions to perform this action"})            
-        }
-
-
+      if (result) {
+        res.json({ status: 200 });
+      } else {
+        res.status(500);
+        res.json({ status: 500, reason: "Unknown database error" });
+      }
     } else {
-      // Not Signed in, user cannot create a new annoucment
-      res.status(401)
+      res.status(403);
+      res.json({
+        status: 403,
+        reason:
+          "You do not have the correct permissions to perform this action",
+      });
     }
-    res.end()
-
+  } else {
+    // Not Signed in, user cannot create a new annoucment
+    res.status(401);
+  }
+  res.end();
 }
