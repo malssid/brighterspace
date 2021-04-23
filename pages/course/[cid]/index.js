@@ -26,12 +26,14 @@ import NewTopic from "../../../components/CourseContent/NewTopic";
 import TopicCard from "../../../components/CourseContent/TopicCard"
 import { query } from "../../../lib/db";
 
+// @TODO - refactor for seprate dashboards for student and teachers
 export default function CourseHome({
   course,
   announcements,
   membership,
   assignments,
-  coursecontent
+  coursecontent,
+  grades
 }) {
   const router = useRouter();
   const [session, loading] = useSession();
@@ -126,6 +128,20 @@ export default function CourseHome({
             ))}
           </Flex>
         </Box>
+        <Box bgColor="whiteAlpha.100">
+          <Flex direction="column" align="center" mt={6}>
+            <Heading size="2xl" color="blue.50" mb={4}>
+              Your grades
+            </Heading>
+            {membership[0].role === 1 && (
+              <Box color="blue.50">To manage grades for this class, please use the grades tool (link TBD)</Box>
+            )}
+            {/* <AssignmentCard cid={course.cid} assignment={assignments[0]} /> */}
+            {grades.map((item, key) => (
+              <Box color="white">{item.name} : {item.grade} out of {item.max_score}</Box>
+            ))}
+          </Flex>
+        </Box>
       </SimpleGrid>
     </>
   );
@@ -158,6 +174,11 @@ export async function getServerSideProps(context) {
     [context.query.cid]
   );
 
+  const grades = await query(
+    "SELECT * FROM grades, gradeItems WHERE cid = ? AND pid = ? AND grades.gid = gradeItems.gid",
+    [context.query.cid, session.user.id]
+  );
+
   const course = await query("SELECT * FROM courses WHERE courses.cid = ?", [
     context.query.cid,
   ]);
@@ -169,6 +190,7 @@ export async function getServerSideProps(context) {
       membership,
       assignments,
       coursecontent,
+      grades
     },
   };
 }
