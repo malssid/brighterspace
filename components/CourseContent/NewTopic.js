@@ -23,22 +23,20 @@ import {
 
 import { useState } from "react";
 
-export default function NewAssignment({ cid }) {
+export default function NewTopic({ cid }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [posted, isPosted] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [submissiontype, setSubmissionType] = useState("");
-  const duedate = "2021-05-07 00:00:00" // Add state for date/time of the duedate
 
-  async function postAssignment() {
-    const result = await fetch("../../../api/assignments/new", {
+  async function postTopic() {
+    const result = await fetch("../../../api/coursecontent/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ cid, title, body, duedate, submissiontype }),
+      body: JSON.stringify({ cid, title, body }),
     });
 
     if (result.status === 200) {
@@ -55,7 +53,7 @@ export default function NewAssignment({ cid }) {
   return (
     <>
       <Box pb="10px">
-        <Button onClick={onOpen}>New Assignment</Button>
+        <Button onClick={onOpen}>New Topic</Button>
       </Box>
 
       <Modal
@@ -68,34 +66,23 @@ export default function NewAssignment({ cid }) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>New Assignment</ModalHeader>
+          <ModalHeader>New Topic</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {posted && (
               <Alert status="success">
                 <AlertIcon />
-                Assignment posted
+                Topic posted
               </Alert>
             )}
             <Textarea
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter your assignment title here"
-              
+              placeholder="Enter the topic title here"
             />
             <Textarea
               onChange={(e) => setBody(e.target.value)}
-              placeholder="Enter your assignment instructions here"
+              placeholder="Enter the topic instructions here"
             />
-            <Select
-              value={submissiontype}
-              onChange={(e) => setSubmissionType(e.target.value)}
-              placeholder="Select type"
-            >
-              <option value="TEXT">Text</option>
-              <option value="FILE">File</option>
-              <option value="BOTH">Both</option>
-            </Select>
-            {/*Add date/time picker for duedate*/}
           </ModalBody>
 
           <ModalFooter>
@@ -105,8 +92,8 @@ export default function NewAssignment({ cid }) {
               </Button>
 
               <Spacer />
-              <Button colorScheme="blue" onClick={postAssignment}>
-                Post Assignment
+              <Button colorScheme="blue" onClick={postTopic}>
+                Post Topic
               </Button>
             </Flex>
           </ModalFooter>

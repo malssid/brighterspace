@@ -73,6 +73,7 @@ export function NewAnnouncement({ cid }) {
       setTimeout(() => {
         onClose();
       }, 1000);
+      window.location.reload();
     } else {
       // Display some type of error
     }
@@ -89,6 +90,8 @@ export function NewAnnouncement({ cid }) {
         onClose={onClose}
         isCentered
         motionPreset="slideInBottom"
+        closeOnOverlayClick={false}
+        size="xl"
       >
         <ModalOverlay />
         <ModalContent>

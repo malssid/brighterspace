@@ -22,6 +22,8 @@ import {
 } from "../../../components/Announcements/Announcement";
 import NewAssignment from "../../../components/Assignments/NewAssignment";
 import AssignmentCard from "../../../components/Assignments/AssignmentCard";
+import NewTopic from "../../../components/CourseContent/NewTopic";
+import TopicCard from "../../../components/CourseContent/TopicCard"
 import { query } from "../../../lib/db";
 
 export default function CourseHome({
@@ -29,6 +31,7 @@ export default function CourseHome({
   announcements,
   membership,
   assignments,
+  coursecontent
 }) {
   const router = useRouter();
   const [session, loading] = useSession();
@@ -72,31 +75,38 @@ export default function CourseHome({
     <>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="10px">
         <Box bgColor="whiteAlpha.100">
-          <Heading size="4xl" color="blue.50" mb={4}>
-            {course.Name}
-          </Heading>
-          <Text color="blue.100">{course.Description}</Text>
+          <Flex direction="column" align="center" mt={6}>
+            <Heading size="4xl" color="blue.50" mb={4}>
+              {course.Name}
+            </Heading>
+            <Text color="blue.100">{course.Description}</Text>
 
-          <Link href={`/course/${course.cid}/roster`}>
-            <a>
-              <Button>Roster</Button>
-            </a>
-          </Link>
+            <Link href={`/course/${course.cid}/roster`}>
+              <a>
+                <Button>Roster</Button>
+              </a>
+            </Link>
 
-          <Text color="blue.100">Button/Link to Gradebook</Text>
+            <Text color="blue.100">Button/Link to Gradebook</Text>
 
-          <Text color="blue.100">Button/Link to Discussion posts?</Text>
+            <Text color="blue.100">Button/Link to Discussion posts?</Text>
 
-          <Text color="blue.100">Button/Link to Course content?</Text>
+            <Heading size="2xl" color="blue.50" mb={4} mt={4}>
+              Course Content
+            </Heading>
+            {membership[0].role === 1 && <NewTopic cid={course.cid} />}
+            {coursecontent.map((item, key) => (
+              <TopicCard key={key} cid={course.cid} topic={item} />
+            ))}
+          </Flex>
         </Box>
+
         <Box bgColor="whiteAlpha.100">
           <Flex direction="column" align="center" mt={6}>
             <Heading size="2xl" color="blue.50" mb={4}>
-              Announcements{" "}
+              Announcements
             </Heading>
-            {membership[0].role === 1 && (
-              <NewAnnouncement cid={course.cid} />
-            )}
+            {membership[0].role === 1 && <NewAnnouncement cid={course.cid} />}
             <List>
               {announcements.map((data, index) => (
                 <Announcement key={index} data={data} />
@@ -109,9 +119,7 @@ export default function CourseHome({
             <Heading size="2xl" color="blue.50" mb={4}>
               Assignments
             </Heading>
-            {membership[0].role === 1 && (
-              <NewAssignment cid={course.cid} />
-            )}
+            {membership[0].role === 1 && <NewAssignment cid={course.cid} />}
             {/* <AssignmentCard cid={course.cid} assignment={assignments[0]} /> */}
             {assignments.map((item, key) => (
               <AssignmentCard key={key} cid={course.cid} assignment={item} />
@@ -145,7 +153,10 @@ export async function getServerSideProps(context) {
     [context.query.cid]
   );
 
-  console.log(assignments)
+  const coursecontent = await query(
+    "SELECT * FROM topic WHERE cid = ? ORDER BY dateposted DESC",
+    [context.query.cid]
+  );
 
   const course = await query("SELECT * FROM courses WHERE courses.cid = ?", [
     context.query.cid,
@@ -157,6 +168,7 @@ export async function getServerSideProps(context) {
       announcements,
       membership,
       assignments,
+      coursecontent,
     },
   };
 }

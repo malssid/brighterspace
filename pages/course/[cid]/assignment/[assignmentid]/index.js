@@ -60,6 +60,7 @@ export default function Assignment({ assignment, membership, submissions }) {
     });
 
     setSubmissionStatus(result.status);
+    window.location.reload();
   }
 
   // @TODO: Make an functional error compontent, with some helpful hints/contact us
@@ -81,7 +82,7 @@ export default function Assignment({ assignment, membership, submissions }) {
   return (
     <>
       <Flex direction="column" align="center">
-        <Heading align="center" color="blue.50" mt={4} mb={8}>
+        <Heading size="3xl" align="center" color="blue.50" mt={4} mb={8}>
           {assignment.title}
         </Heading>
         <Text align="center" color="blue.100">
@@ -103,6 +104,17 @@ export default function Assignment({ assignment, membership, submissions }) {
       </Center>
       <Center color="blue.50" mt={4}>
         {assignment.submissiontype === "BOTH" && (
+          <Textarea
+            size="lg"
+            bg="blue.50"
+            color="black"
+            w="90%"
+            fontSize="15px"
+            onChange={(e) => setSubmissionField(e.target.value)}
+            placeholder="Type your answer here..."
+          ></Textarea>
+        )}
+        {assignment.submissiontype === "TEXT" && (
           <Textarea
             size="lg"
             bg="blue.50"
