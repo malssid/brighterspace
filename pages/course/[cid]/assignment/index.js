@@ -1,5 +1,5 @@
 
 
 export default function Assignment(){
-    return <div>Test</div>
+    return <div>List of all assignments?</div>
 }
