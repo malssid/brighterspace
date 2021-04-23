@@ -25,18 +25,6 @@ export default async function (req, res) {
                 [req.body.gid, req.body.cid]
             )
 
-            gradebookItem = gradebookItem[0]
-
-            // if(req.body.name){
-            //     gradebookItem.name = req.body.name
-            // }
-
-            // if(req.body.max_score){
-            //     gradebookItem.max_score = req.body.max_score
-            // }
-            console.log(gradebookItem)
-
-
             for (var key in gradebookItem) {
                 if(req.body[key] != null){
                   gradebookItem[key] = req.body[key] 
@@ -47,7 +35,7 @@ export default async function (req, res) {
 
 
             const result = query(
-                "REPLACE INTO gradeItems (gid, cid, name, max_score) VALUES (?, ?, ?)",
+                "REPLACE INTO gradeItems (gid, cid, name, max_score) VALUES (?, ?, ?, ?)",
                 [gradebookItem.gid, gradebookItem.cid, gradebookItem.name, gradebookItem.max_score]
               );
 

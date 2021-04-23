@@ -1,4 +1,4 @@
-import { Heading, Box, Editable, EditablePreview, EditableInput } from "@chakra-ui/react";
+import { Heading, Box, Editable, EditablePreview, EditableInput, Alert } from "@chakra-ui/react";
 import { Table, Thead, Tr, Th, Td, Tbody } from "@chakra-ui/react";
 
 import { useSession, getSession } from "next-auth/client";
@@ -14,7 +14,7 @@ function instructorManageGrades(props){
   function postUpdatedItem(gid, updatedData){
     console.log(`Update ${gid} with ${updatedData}`)
 
-    const result = fetch('/api/grades/info', {
+    fetch('/api/grades/info', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -24,16 +24,17 @@ function instructorManageGrades(props){
         gid: gid,
         cid: props.membership.cid
       })
+    }).then(data => {
+      if(data.status){
+        setRecentlyUpdated(true);
+        setTimeout(function(){
+          setRecentlyUpdated(undefined);
+        }, 3000)
+      }else{
+        alert("Error updating data")
+      }
     })
 
-    if(result.status){
-      setRecentlyUpdated(true);
-      setTimeout(function(){
-        setRecentlyUpdated(undefined);
-      }, 3000)
-    }else{
-      alert("Error updating data")
-    }
   }
 
   return (<>
