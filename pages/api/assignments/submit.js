@@ -9,8 +9,8 @@ export default async function (req, res) {
       // @TODO: Check if user can submit (e.g., not past due date)
 
       const result = query(
-        "REPLACE INTO submissions (assnid, pid, body) VALUES (?, ?, ?)",
-        [req.body.assnid, session.user.id, req.body.text]
+        "REPLACE INTO submissions (cid, assnid, pid, body) VALUES (?, ?, ?, ?)",
+        [req.body.cid, req.body.assnid, session.user.id, req.body.text]
       );
 
       if (result) {

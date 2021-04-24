@@ -16,10 +16,8 @@ import { useSession, getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-import {
-  Announcement,
-  NewAnnouncement,
-} from "../../../components/Announcements/Announcement";
+import NewAnnouncement from "../../../components/Announcements/NewAnnouncement";
+import AnnouncementCard from "../../../components/Announcements/AnnouncementCard";
 import NewAssignment from "../../../components/Assignments/NewAssignment";
 import AssignmentCard from "../../../components/Assignments/AssignmentCard";
 import NewTopic from "../../../components/CourseContent/NewTopic";
@@ -98,7 +96,7 @@ export default function CourseHome({
             </Heading>
             {membership[0].role === 1 && <NewTopic cid={course.cid} />}
             {coursecontent.map((item, key) => (
-              <TopicCard key={key} cid={course.cid} topic={item} />
+              <TopicCard key={key} isInstructor={membership[0].role} topic={item} />
             ))}
           </Flex>
         </Box>
@@ -110,8 +108,8 @@ export default function CourseHome({
             </Heading>
             {membership[0].role === 1 && <NewAnnouncement cid={course.cid} />}
             <List>
-              {announcements.map((data, index) => (
-                <Announcement key={index} data={data} />
+              {announcements.map((item, index) => (
+                <AnnouncementCard key={index} isInstructor={membership[0].role} announcement={item} />
               ))}
             </List>
           </Flex>
@@ -124,7 +122,7 @@ export default function CourseHome({
             {membership[0].role === 1 && <NewAssignment cid={course.cid} />}
             {/* <AssignmentCard cid={course.cid} assignment={assignments[0]} /> */}
             {assignments.map((item, key) => (
-              <AssignmentCard key={key} cid={course.cid} assignment={item} />
+              <AssignmentCard key={key} isInstructor={membership[0].role} assignment={item} />
             ))}
           </Flex>
         </Box>

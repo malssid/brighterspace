@@ -7,17 +7,8 @@ import { ArrowUpIcon, CheckIcon } from "@chakra-ui/icons";
 import {
   Heading,
   Text,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Button,
   Textarea,
-  Spacer,
   Alert,
   AlertIcon,
   Flex,
@@ -26,11 +17,9 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
 } from "@chakra-ui/react";
 
 export default function Assignment({ assignment, membership, submissions }) {
@@ -54,6 +43,7 @@ export default function Assignment({ assignment, membership, submissions }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        cid: assignment.cid,
         text: submissionField,
         assnid: assignment.assnid,
       }),
@@ -153,7 +143,7 @@ export default function Assignment({ assignment, membership, submissions }) {
                 </Tr>
               </Thead>
               <Tbody>
-                {submissions.map((student, key) => (
+                {submissions && submissions.map((student, key) => (
                   <Tr key={key}>
                     <Td>
                       {student.First_name} {student.Last_name}
@@ -185,12 +175,12 @@ export async function getServerSideProps(context) {
 
   const assignment = await query(
     "SELECT * FROM assignments WHERE cid = ? AND assnid = ?",
-    [context.query.cid, context.query.assignmentid]
+    [context.query.cid, context.query.assnid]
   );
 
   const submissions = await query(
-    "SELECT First_name, Last_name, date, body FROM submissions, people WHERE assnid = ? AND submissions.pid = people.pid ORDER BY date DESC",
-    [context.query.assignmentid]
+    "SELECT First_name, Last_name, date, body FROM submissions, people WHERE assnid = ? AND submissions.pid = people.pid AND cid = ? ORDER BY date DESC",
+    [context.query.assnid, context.query.cid]
   );
 
   return {

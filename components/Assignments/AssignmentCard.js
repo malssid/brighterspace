@@ -1,22 +1,37 @@
-import Link from "next/link";
-import { Box, Heading, Text, Badge } from "@chakra-ui/layout";
+import NextLink from "next/link";
+import { Heading, Text, Badge, Box, Flex } from "@chakra-ui/layout";
+import DeleteAssignment from "./DeleteAssignment";
 
-const AssignmentCard = ({ assignment, cid }) => {
+const AssignmentCard = ({ isInstructor, assignment }) => {
   return (
-    <Link href={`/course/${cid}/assignment/${assignment.assnid}`}>
-      <Box
-        borderRadius="lg"
-        boxShadow="lg"
-        bg="blue.50"
-        p={4}
-        w="80%"
-        color="blue.900"
-        mb="4"
-        cursor="pointer"
-        // height="150px"
+    <Box
+      borderRadius="lg"
+      boxShadow="lg"
+      bg="blue.50"
+      p={4}
+      w="80%"
+      color="blue.900"
+      mb="4"
+      // height="150px">
+    >
+      {isInstructor && (
+        <Flex align="center" direction="column">
+          <DeleteAssignment cid={assignment.cid} assnid={assignment.assnid} />
+        </Flex>
+      )}
+      <NextLink
+        href={`/course/${assignment.cid}/assignment/${assignment.assnid}`}
+        passHref
       >
-        <Heading>{assignment.title}</Heading>
-        <Text>{assignment.body}</Text>
+        <a>
+          <Flex align="center" direction="column" cursor="pointer">
+            <Heading align="center">{assignment.title}</Heading>
+            <Text align="center">{assignment.body}</Text>
+          </Flex>
+        </a>
+      </NextLink>
+
+      <Flex justify="center" wrap="wrap">
         <Badge
           borderRadius="full"
           m={1}
@@ -55,8 +70,8 @@ const AssignmentCard = ({ assignment, cid }) => {
             File submission
           </Badge>
         )}
-      </Box>
-    </Link>
+      </Flex>
+    </Box>
   );
 };
 
