@@ -1,7 +1,5 @@
 import {
   Flex,
-  Badge,
-  Text,
   Box,
   useDisclosure,
   Modal,
@@ -16,44 +14,15 @@ import {
   Spacer,
   Alert,
   AlertIcon,
-  AlertTitle,
-  AlertDescription,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
 
 /**
- * Displays an annocument card with title, poster, body and date posted
- * @param {object} param0 Annocument data
- * @returns
- */
-export function Announcement({ data }) {
-  return (
-    <Flex
-      borderRadius="lg"
-      boxShadow="lg"
-      bg="blue.50"
-      w="80"
-      p={4}
-      color="blue.900"
-      mb="4"
-      justify="center"
-      align="center"
-      direction="column"
-    >
-      <Text>{data.body}</Text>
-      <Badge mt={2} borderRadius="full" py={1} px={2} bg="blue.200">
-        {data.dateposted}
-      </Badge>
-    </Flex>
-  );
-}
-
-/**
  *
  * @param {props} props Should include a courseid and pid of the poster
  */
-export function NewAnnouncement({ cid }) {
+export default function NewAnnouncement({ cid }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [posted, isPosted] = useState(false);

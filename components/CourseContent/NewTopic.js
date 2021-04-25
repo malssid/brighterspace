@@ -1,7 +1,5 @@
 import {
   Flex,
-  Badge,
-  Text,
   Box,
   useDisclosure,
   Modal,
@@ -16,9 +14,6 @@ import {
   Spacer,
   Alert,
   AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Select,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
