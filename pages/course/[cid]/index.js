@@ -31,10 +31,13 @@ export default function CourseHome({
   membership,
   assignments,
   coursecontent,
-  grades
+  grades,
+  setPageTitle
 }) {
   const router = useRouter();
   const [session, loading] = useSession();
+
+  // setPageTitle("t")
 
   useEffect(() => {
     if (!session && !loading) {
@@ -56,7 +59,7 @@ export default function CourseHome({
   }
 
   // @TODO: Make an functional error compontent, with some helpful hints/contact us
-  if (membership.length === 0 || course === null) {
+  if (membership === null || course === null) {
     return (
       <Alert
         status="error"
