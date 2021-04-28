@@ -6,9 +6,10 @@ import {
   Skeleton,
   Stack,
   SimpleGrid,
-  Center
+  Center,
 } from "@chakra-ui/react";
 import CourseCard from "../components/CourseCard";
+import moment from "moment";
 
 import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -39,21 +40,23 @@ export default function Home({ courses }) {
   }
 
   return (
-    <Center mt={4}>     
+    <Center mt={4} ml={{ base: "4", md: "0" }}>
       {/* <SimpleGrid columns={{sm: 1, lg: 2}} spacing="10px"> */}
-        <SimpleGrid minChildWidth="200px" spacing="10px">
-      {courses.map((course, idx) => (
-        <CourseCard
-          key={idx}
-          cid={course.cid}
-          name={course.Name}
-          desc={course.Description}
-          term={course.Term}
-        />
-      ))}
-    </SimpleGrid>
+      <SimpleGrid minChildWidth="200px" spacing="10px">
+        {courses.map((course, idx) => (
+          <CourseCard
+            key={idx}
+            cid={course.cid}
+            name={course.Name}
+            desc={course.Description}
+            term={course.Term}
+            nextAssignmentTitle={course.title}
+            nextAssignmentDuedate={course.duedate}
+            nextAssignmentAssnid={course.assnid}
+          />
+        ))}
+      </SimpleGrid>
     </Center>
-    
   );
 }
 
@@ -65,9 +68,11 @@ export async function getServerSideProps(context) {
   }
 
   const courses = await query(
-    "SELECT courses.cid as cid, Name, Description, Term FROM memberships, courses WHERE memberships.pid = ? AND memberships.cid = courses.cid",
+    "select nextAssn.cid, nextAssn.assnid, nextAssn.title, nextAssn.duedate, courses.Name, courses.Description, courses.Term from (select * from assignments order by duedate asc) as nextAssn, courses, memberships WHERE memberships.pid = ? AND memberships.cid = courses.cid AND courses.cid = nextAssn.cid group by cid",
     [session.user.id]
   );
+
+  console.log(courses)
 
   return {
     props: {
