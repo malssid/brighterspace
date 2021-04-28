@@ -51,7 +51,7 @@ export default function NewAssignment({ cid }) {
   return (
     <>
       <Box pb="10px">
-        <Button onClick={onOpen}>New Assignment</Button>
+        <Button onClick={onOpen}>Add Assignment</Button>
       </Box>
 
       <Modal

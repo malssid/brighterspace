@@ -9,7 +9,7 @@ const AssignmentCard = ({ isInstructor, assignment }) => {
       boxShadow="lg"
       bg="blue.50"
       p={4}
-      w="80%"
+      w="60%"
       color="blue.900"
       mb="4"
       // height="150px">
@@ -25,52 +25,53 @@ const AssignmentCard = ({ isInstructor, assignment }) => {
       >
         <a>
           <Flex align="center" direction="column" cursor="pointer">
-            <Heading align="center">{assignment.title}</Heading>
-            <Text align="center">{assignment.body}</Text>
+            <Heading align="center" size="xl">
+              {assignment.title}
+            </Heading>
+          </Flex>
+
+          <Flex justify="center" wrap="wrap">
+            <Badge
+              borderRadius="full"
+              m={1}
+              py={1}
+              px={2}
+              color="blue.800"
+              bg="blue.100"
+            >
+              Due {assignment.duedate}
+            </Badge>
+
+            {(assignment.submissiontype === "TEXT" ||
+              assignment.submissiontype === "BOTH") && (
+              <Badge
+                borderRadius="full"
+                m={1}
+                py={1}
+                px={2}
+                color="blue.800"
+                bg="blue.100"
+              >
+                Text submission
+              </Badge>
+            )}
+
+            {(assignment.submissiontype === "FILE" ||
+              assignment.submissiontype === "BOTH") && (
+              <Badge
+                borderRadius="full"
+                m={1}
+                py={1}
+                px={2}
+                color="blue.800"
+                bg="blue.100"
+              >
+                File submission
+              </Badge>
+            )}
           </Flex>
         </a>
       </NextLink>
-
-      <Flex justify="center" wrap="wrap">
-        <Badge
-          borderRadius="full"
-          m={1}
-          py={1}
-          px={2}
-          color="blue.800"
-          bg="blue.100"
-        >
-          Due {assignment.duedate}
-        </Badge>
-
-        {(assignment.submissiontype === "TEXT" ||
-          assignment.submissiontype === "BOTH") && (
-          <Badge
-            borderRadius="full"
-            m={1}
-            py={1}
-            px={2}
-            color="blue.800"
-            bg="blue.100"
-          >
-            Text submission
-          </Badge>
-        )}
-
-        {(assignment.submissiontype === "FILE" ||
-          assignment.submissiontype === "BOTH") && (
-          <Badge
-            borderRadius="full"
-            m={1}
-            py={1}
-            px={2}
-            color="blue.800"
-            bg="blue.100"
-          >
-            File submission
-          </Badge>
-        )}
-      </Flex>
     </Box>
   );
 };

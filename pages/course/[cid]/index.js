@@ -11,6 +11,9 @@ import {
   SimpleGrid,
   Box,
   Button,
+  Badge,
+  HStack,
+  Divider,
 } from "@chakra-ui/react";
 import { useSession, getSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -20,10 +23,10 @@ import NewAnnouncement from "../../../components/Announcements/NewAnnouncement";
 import AnnouncementCard from "../../../components/Announcements/AnnouncementCard";
 import NewAssignment from "../../../components/Assignments/NewAssignment";
 import AssignmentCard from "../../../components/Assignments/AssignmentCard";
-import { Group, Link as NavLink } from "../../../components/NextGenNavbar"
+import { Group, Link as NavLink } from "../../../components/NextGenNavbar";
 
 import NewTopic from "../../../components/CourseContent/NewTopic";
-import TopicCard from "../../../components/CourseContent/TopicCard"
+import TopicCard from "../../../components/CourseContent/TopicCard";
 import { query } from "../../../lib/db";
 
 // @TODO - refactor for seprate dashboards for student and teachers
@@ -35,7 +38,7 @@ export default function CourseHome({
   coursecontent,
   grades,
   setPageTitle,
-  setNavMenu
+  setNavMenu,
 }) {
   const router = useRouter();
   const [session, loading] = useSession();
@@ -48,15 +51,25 @@ export default function CourseHome({
     }
   }, []);
 
-  useEffect( () => {
+  useEffect(() => {
     setNavMenu(
       <Group title="Course">
-        <NavLink href={`/course/${course.cid}`} text="Dashboard" active="true"></NavLink>
-        <NavLink href={`/course/${course.cid}/announcements`} text="Announcements"></NavLink>
+        <NavLink
+          href={`/course/${course.cid}`}
+          text="Dashboard"
+          active="true"
+        ></NavLink>
+        <NavLink
+          href={`/course/${course.cid}/announcements`}
+          text="Announcements"
+        ></NavLink>
         <NavLink href={`/course/${course.cid}/roster`} text="Roster"></NavLink>
-        <NavLink href={`/course/${course.cid}/assignments`} text="Assignments"></NavLink>
+        <NavLink
+          href={`/course/${course.cid}/assignments`}
+          text="Assignments"
+        ></NavLink>
       </Group>
-    )
+    );
   }, []);
 
   // @TODO: Make a functional loading component?
@@ -89,76 +102,104 @@ export default function CourseHome({
   }
 
   return (
-    <>
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="10px">
-        <Box bgColor="whiteAlpha.100">
-          <Flex direction="column" align="center" mt={6}>
-            <Heading size="4xl" color="blue.50" mb={4}>
-              {course.Name}
-            </Heading>
-            <Text color="blue.100">{course.Description}</Text>
-
-            <Link href={`/course/${course.cid}/roster`}>
-              <a>
-                <Button>Roster</Button>
-              </a>
-            </Link>
-
-            <Text color="blue.100">Button/Link to Gradebook</Text>
-
-            <Text color="blue.100">Button/Link to Discussion posts?</Text>
-
-            <Heading size="2xl" color="blue.50" mb={4} mt={4}>
-              Course Content
-            </Heading>
-            {membership[0].role === 1 && <NewTopic cid={course.cid} />}
+    <Flex
+      direction="column"
+      justify="center"
+      p={8}
+      borderRadius="md"
+      m={6}
+      w="full"
+    >
+      <SimpleGrid
+        columns={{ base: 1, md: 2 }}
+        spacingX={6}
+        spacingY={6}
+        minChildWidth="485px"
+      >
+        <Flex
+          backgroundColor="blue.700"
+          borderRadius="lg"
+          boxShadow="md"
+          p={8}
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <Heading size="4xl" color="blue.50">
+            {course.Name}
+          </Heading>
+          <Heading size="md" mt={1} mb={{base: 4}} color="blue.100">
+            {course.Description}
+          </Heading>
+          {membership[0].role === 1 && (
+            <>
+              <Divider borderColor="whiteAlpha.500" m="auto" />
+              <Flex mt={{base: 4}} align="center" justify="center" direction="column">
+                <Heading size="lg" color="blue.100">
+                  Instructor Tools
+                </Heading>
+                <HStack mt={2}>
+                  <NewTopic cid={course.cid} />
+                  <NewAnnouncement cid={course.cid} />
+                  <NewAssignment cid={course.cid} />{" "}
+                </HStack>
+              </Flex>
+            </>
+          )}
+        </Flex>
+        <Box backgroundColor="blue.700" boxShadow="md" borderRadius="lg" p={8}>
+          <Heading textAlign="center" mb={2} size="2xl" color="blue.50">
+            Course Content
+          </Heading>
+          <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />
+          <Stack mt={4} spacing={2} alignItems="center">
             {coursecontent.map((item, key) => (
-              <TopicCard key={key} isInstructor={membership[0].role} topic={item} />
+              <TopicCard
+                key={key}
+                isInstructor={membership[0].role}
+                topic={item}
+              />
             ))}
-          </Flex>
+          </Stack>
         </Box>
-
-        <Box bgColor="whiteAlpha.100">
-          <Flex direction="column" align="center" mt={6}>
-            <Heading size="2xl" color="blue.50" mb={4}>
-              Announcements
-            </Heading>
-            {membership[0].role === 1 && <NewAnnouncement cid={course.cid} />}
-            <List>
-              {announcements.map((item, index) => (
-                <AnnouncementCard key={index} isInstructor={membership[0].role} announcement={item} />
-              ))}
-            </List>
-          </Flex>
+        <Box
+          backgroundColor="blue.700"
+          borderRadius="lg"
+          boxShadow="md"
+          p={8}
+          textAlign="center"
+        >
+          <Heading textAlign="center" mb={2} size="2xl" color="blue.50">
+            Announcements
+          </Heading>
+          <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />
+          <Stack mt={4} spacing={2} justifyContent="center" alignItems="center">
+            {announcements.map((item, index) => (
+              <AnnouncementCard
+                key={index}
+                isInstructor={membership[0].role}
+                announcement={item}
+              />
+            ))}
+          </Stack>
         </Box>
-        <Box bgColor="whiteAlpha.100">
-          <Flex direction="column" align="center" mt={6}>
-            <Heading size="2xl" color="blue.50" mb={4}>
-              Assignments
-            </Heading>
-            {membership[0].role === 1 && <NewAssignment cid={course.cid} />}
-            {/* <AssignmentCard cid={course.cid} assignment={assignments[0]} /> */}
+        <Box backgroundColor="blue.700" boxShadow="md" borderRadius="lg" p={8}>
+          <Heading textAlign="center" mb={2} size="2xl" color="blue.50">
+            Assignments
+          </Heading>
+          <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />
+          <Stack mt={4} spacing={2} justifyContent="center" alignItems="center">
             {assignments.map((item, key) => (
-              <AssignmentCard key={key} isInstructor={membership[0].role} assignment={item} />
+              <AssignmentCard
+                key={key}
+                isInstructor={membership[0].role}
+                assignment={item}
+              />
             ))}
-          </Flex>
-        </Box>
-        <Box bgColor="whiteAlpha.100">
-          <Flex direction="column" align="center" mt={6}>
-            <Heading size="2xl" color="blue.50" mb={4}>
-              Your grades
-            </Heading>
-            {membership[0].role === 1 && (
-              <Box color="blue.50">To manage grades for this class, please use the grades tool (link TBD)</Box>
-            )}
-            {/* <AssignmentCard cid={course.cid} assignment={assignments[0]} /> */}
-            {grades.map((item, key) => (
-              <Box color="white">{item.name} : {item.grade} out of {item.max_score}</Box>
-            ))}
-          </Flex>
+          </Stack>
         </Box>
       </SimpleGrid>
-    </>
+    </Flex>
   );
 }
 
@@ -205,7 +246,7 @@ export async function getServerSideProps(context) {
       membership,
       assignments,
       coursecontent,
-      grades
+      grades,
     },
   };
 }

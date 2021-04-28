@@ -33,7 +33,7 @@ export default function Topic({ topic, membership }) {
   }
 
   return (
-    <Flex direction="column" align="center">
+    <Flex direction="column" align="center" w="full">
       <Heading size="3xl" align="center" color="blue.50" mt={4} mb={8}>
         {topic.title}
       </Heading>
