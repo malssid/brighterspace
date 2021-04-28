@@ -26,7 +26,7 @@ export default function NewAssignment({ cid }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [submissiontype, setSubmissionType] = useState("");
-  const duedate = "2021-05-07 00:00:00" // Add state for date/time of the duedate
+  const duedate = "2021-05-05 00:00:00" // Add state for date/time of the duedate
 
   async function postAssignment() {
     const result = await fetch("../../../api/assignments/new", {
