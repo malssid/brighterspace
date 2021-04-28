@@ -159,7 +159,7 @@ export default function Assignment({ assignment, membership, submissions }) {
       )}
     </>
   );
-}
+} 
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
