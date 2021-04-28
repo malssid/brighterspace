@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Apr 03, 2021 at 02:46 PM
--- Server version: 5.6.41-84.1
--- PHP Version: 7.3.6
+-- Host: db-mysql-nyc3-86735-do-user-9150424-0.b.db.ondigitalocean.com:25060
+-- Generation Time: Apr 28, 2021 at 01:48 AM
+-- Server version: 8.0.23
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,15 +24,71 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `announcements`
+--
+
+CREATE TABLE `announcements` (
+  `aid` int UNSIGNED NOT NULL,
+  `pid` int UNSIGNED NOT NULL,
+  `cid` int UNSIGNED NOT NULL,
+  `dateposted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `title` text,
+  `body` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assignments`
+--
+
+CREATE TABLE `assignments` (
+  `assnid` int UNSIGNED NOT NULL,
+  `cid` int UNSIGNED NOT NULL,
+  `title` text,
+  `body` text,
+  `duedate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `submissiontype` char(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `courses`
 --
 
 CREATE TABLE `courses` (
-  `cid` int(10) UNSIGNED NOT NULL,
-  `Name` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-  `Description` varchar(2048) COLLATE utf8_unicode_ci NOT NULL,
-  `Term` varchar(16) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `cid` int UNSIGNED NOT NULL,
+  `Name` text,
+  `Description` int DEFAULT NULL,
+  `Term` varchar(16) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gradeItems`
+--
+
+CREATE TABLE `gradeItems` (
+  `gid` int UNSIGNED NOT NULL,
+  `cid` int UNSIGNED NOT NULL,
+  `name` text NOT NULL,
+  `max_score` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `grades`
+--
+
+CREATE TABLE `grades` (
+  `pid` int NOT NULL,
+  `gid` int NOT NULL,
+  `grade` int DEFAULT NULL,
+  `comment` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -42,11 +97,11 @@ CREATE TABLE `courses` (
 --
 
 CREATE TABLE `memberships` (
-  `cid` int(10) UNSIGNED NOT NULL,
-  `pid` int(10) UNSIGNED NOT NULL,
-  `role` int(10) UNSIGNED NOT NULL,
+  `cid` int UNSIGNED NOT NULL,
+  `pid` int UNSIGNED NOT NULL,
+  `role` int UNSIGNED DEFAULT '0',
   `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -55,16 +110,58 @@ CREATE TABLE `memberships` (
 --
 
 CREATE TABLE `people` (
-  `pid` int(10) UNSIGNED NOT NULL,
-  `First_name` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Last_name` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Password` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'SHA-2 Hashed Password'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `pid` int UNSIGNED NOT NULL,
+  `First_name` varchar(128) DEFAULT NULL,
+  `Last_name` varchar(128) DEFAULT NULL,
+  `Email` varchar(128) DEFAULT NULL,
+  `Password` varchar(256) DEFAULT NULL COMMENT 'SHA-256 Hashed Password',
+  `OrgID` varchar(16) DEFAULT NULL,
+  `OrgRole` varchar(16) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `submissions`
+--
+
+CREATE TABLE `submissions` (
+  `sid` int UNSIGNED NOT NULL,
+  `assid` int UNSIGNED NOT NULL,
+  `pid` int UNSIGNED NOT NULL,
+  `body` text,
+  `file` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `topic`
+--
+
+CREATE TABLE `topic` (
+  `tid` int UNSIGNED NOT NULL,
+  `cid` int UNSIGNED NOT NULL,
+  `dateposted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `title` text,
+  `body` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `announcements`
+--
+ALTER TABLE `announcements`
+  ADD PRIMARY KEY (`aid`);
+
+--
+-- Indexes for table `assignments`
+--
+ALTER TABLE `assignments`
+  ADD PRIMARY KEY (`assnid`);
 
 --
 -- Indexes for table `courses`
@@ -73,11 +170,22 @@ ALTER TABLE `courses`
   ADD PRIMARY KEY (`cid`);
 
 --
+-- Indexes for table `gradeItems`
+--
+ALTER TABLE `gradeItems`
+  ADD PRIMARY KEY (`gid`);
+
+--
+-- Indexes for table `grades`
+--
+ALTER TABLE `grades`
+  ADD PRIMARY KEY (`pid`,`gid`);
+
+--
 -- Indexes for table `memberships`
 --
 ALTER TABLE `memberships`
-  ADD PRIMARY KEY (`cid`,`pid`),
-  ADD KEY `pid` (`pid`);
+  ADD PRIMARY KEY (`cid`,`pid`);
 
 --
 -- Indexes for table `people`
@@ -86,30 +194,62 @@ ALTER TABLE `people`
   ADD PRIMARY KEY (`pid`);
 
 --
+-- Indexes for table `submissions`
+--
+ALTER TABLE `submissions`
+  ADD PRIMARY KEY (`sid`);
+
+--
+-- Indexes for table `topic`
+--
+ALTER TABLE `topic`
+  ADD PRIMARY KEY (`tid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `announcements`
+--
+ALTER TABLE `announcements`
+  MODIFY `aid` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `assignments`
+--
+ALTER TABLE `assignments`
+  MODIFY `assnid` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `cid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `cid` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `gradeItems`
+--
+ALTER TABLE `gradeItems`
+  MODIFY `gid` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `people`
 --
 ALTER TABLE `people`
-  MODIFY `pid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `pid` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `submissions`
 --
+ALTER TABLE `submissions`
+  MODIFY `sid` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for table `memberships`
+-- AUTO_INCREMENT for table `topic`
 --
-ALTER TABLE `memberships`
-  ADD CONSTRAINT `memberships_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `people` (`pid`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `topic`
+  MODIFY `tid` int UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
