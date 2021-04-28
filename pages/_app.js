@@ -1,6 +1,3 @@
-import "@fontsource/chivo/700.css";
-import "@fontsource/overpass/400.css";
-
 import { ChakraProvider } from "@chakra-ui/react";
 import * as UI from "@chakra-ui/react";
 
@@ -17,11 +14,11 @@ import NextGenNavbar from "../components/NextGenNavbar";
 function MyApp({ Component, pageProps }) {
   const [pageTitle, setPageTitle] = useState(undefined);
   const [navMenu, setNavMenu] = useState(<p>Test</p>);
-
+  
 
   return (
     <p>
-      <GoogleFonts href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" />
+      <GoogleFonts href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Noto+Sans&display=swap" />
       <NextHead>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

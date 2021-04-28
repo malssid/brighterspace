@@ -59,7 +59,6 @@ export default function CourseCard({
           <Heading
             mt={4}
             color={"blue.900"}
-            fontWeight={800}
             fontSize="xl"
             letterSpacing={1.1}
             align="center"
