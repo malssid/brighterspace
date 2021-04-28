@@ -2,9 +2,16 @@ import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   fonts: {
-    heading: "Chivo",
-    body: "Overpass",
+    heading: "Montserrat",
+    body: "Noto Sans",
     // body: "Open Sans"
+  },
+  components: {
+    Button: {
+      baseStyle: {
+        fontFamily: "Noto Sans"
+      }
+    }
   },
   styles: {
     global: {

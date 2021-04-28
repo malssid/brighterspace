@@ -70,7 +70,6 @@ export function Link(props){
                         leftIcon={<AttachmentIcon color="gray.500" />}
                         variant="ghost"
                         color="gray.300"
-                        fontFamily="Open Sans"
                         justifyContent="flex-start"
                         _hover={{
                             backgroundColor: props.active ? "gray.600" : "gray.700"
