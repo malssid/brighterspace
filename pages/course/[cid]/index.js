@@ -20,6 +20,8 @@ import NewAnnouncement from "../../../components/Announcements/NewAnnouncement";
 import AnnouncementCard from "../../../components/Announcements/AnnouncementCard";
 import NewAssignment from "../../../components/Assignments/NewAssignment";
 import AssignmentCard from "../../../components/Assignments/AssignmentCard";
+import { Group, Link as NavLink } from "../../../components/NextGenNavbar"
+
 import NewTopic from "../../../components/CourseContent/NewTopic";
 import TopicCard from "../../../components/CourseContent/TopicCard"
 import { query } from "../../../lib/db";
@@ -32,7 +34,8 @@ export default function CourseHome({
   assignments,
   coursecontent,
   grades,
-  setPageTitle
+  setPageTitle,
+  setNavMenu
 }) {
   const router = useRouter();
   const [session, loading] = useSession();
@@ -43,6 +46,17 @@ export default function CourseHome({
     if (!session && !loading) {
       router.push("/account/sign-in");
     }
+  }, []);
+
+  useEffect( () => {
+    setNavMenu(
+      <Group title="Course">
+        <NavLink href={`/course/${course.cid}`} text="Dashboard" active="true"></NavLink>
+        <NavLink href={`/course/${course.cid}/announcements`} text="Announcements"></NavLink>
+        <NavLink href={`/course/${course.cid}/roster`} text="Roster"></NavLink>
+        <NavLink href={`/course/${course.cid}/assignments`} text="Assignments"></NavLink>
+      </Group>
+    )
   }, []);
 
   // @TODO: Make a functional loading component?

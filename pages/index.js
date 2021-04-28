@@ -9,6 +9,9 @@ import {
   Center,
 } from "@chakra-ui/react";
 import CourseCard from "../components/CourseCard";
+import { Group, Link } from "./../components/NextGenNavbar"
+
+
 import moment from "moment";
 
 import { getSession, useSession } from "next-auth/client";
@@ -16,7 +19,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { query } from "../lib/db";
 
-export default function Home({ courses }) {
+export default function Home({ courses, setNavMenu }) {
   const router = useRouter();
   const [session, loading] = useSession();
 
@@ -25,6 +28,14 @@ export default function Home({ courses }) {
       router.push("/account/sign-in");
     }
   }, [loading]);
+
+  useEffect( () => {
+    setNavMenu(
+      <Group title="Course">
+        <Link href="/" text="Your Courses" active="true"></Link>
+      </Group>
+    )
+  }, []);
 
   // @TODO: adjust Skeleton once courseCard is final
   if (!session) {
