@@ -68,11 +68,9 @@ export async function getServerSideProps(context) {
   }
 
   const courses = await query(
-    "select nextAssn.cid, nextAssn.assnid, nextAssn.title, nextAssn.duedate, courses.Name, courses.Description, courses.Term from (select * from assignments order by duedate asc) as nextAssn, courses, memberships WHERE memberships.pid = ? AND memberships.cid = courses.cid AND courses.cid = nextAssn.cid group by cid",
+    "select nextAssn.cid, nextAssn.assnid, nextAssn.title, nextAssn.duedate, courses.Name, courses.Description, courses.Term from (select * from assignments order by duedate asc) as nextAssn, courses, memberships WHERE memberships.pid = ? AND memberships.cid = courses.cid AND courses.cid = nextAssn.cid AND NOW() <= duedate group by cid",
     [session.user.id]
   );
-
-  console.log(courses)
 
   return {
     props: {
