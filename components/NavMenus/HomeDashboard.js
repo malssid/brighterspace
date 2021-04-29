@@ -12,7 +12,7 @@ function HomeDashboard({active}) {
                 <Link icon={<HamburgerIcon color="gray.500" />} href="/" text="Your Courses" active={active === "courses" ? true : false}></Link>
             </Group>
             <Group title="Account">
-                <Link icon={<SmallCloseIcon color="gray.500" />} text="Sign Out" onClick={() => signOut()}></Link>
+                <Link icon={<SmallCloseIcon color="gray.500" />} text="Sign Out" onClick={signOut()}></Link>
             </Group>
       </>
     )
