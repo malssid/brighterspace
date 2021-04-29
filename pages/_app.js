@@ -7,13 +7,12 @@ import NextHead from "next/head";
 import { GoogleFonts } from "next-google-fonts";
 
 import { useState } from "react";
-import NextGenNavbar from "../components/NextGenNavbar";
+import Navbar from "../components/Navbar";
 
 function MyApp({ Component, pageProps }) {
   const [pageTitle, setPageTitle] = useState(undefined);
-  const [navMenu, setNavMenu] = useState(<p>Test</p>);
+  const [navMenu, setNavMenu] = useState(<></>);
   
-
   return (
     <p>
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Noto+Sans&display=swap" />
@@ -30,14 +29,13 @@ function MyApp({ Component, pageProps }) {
                 direction={{base: 'column', md: 'row'}}
                 align={{base: 'center', md: 'flex-start'}}
           >
-            <NextGenNavbar pageTitle={pageTitle}>{navMenu}</NextGenNavbar>
+            <Navbar pageTitle={pageTitle}>{navMenu}</Navbar>
             <Component 
               setPageTitle={setPageTitle}  
               setNavMenu={setNavMenu}
               {...pageProps} />
           </UI.Flex>
-
-          {/* <Navbar pageTitle={pageTitle} /> */}
+          
         </ChakraProvider>
       </Provider>
     </p>

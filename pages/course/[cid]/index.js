@@ -23,7 +23,7 @@ import NewAnnouncement from "../../../components/Announcements/NewAnnouncement";
 import AnnouncementCard from "../../../components/Announcements/AnnouncementCard";
 import NewAssignment from "../../../components/Assignments/NewAssignment";
 import AssignmentCard from "../../../components/Assignments/AssignmentCard";
-import { Group, Link as NavLink } from "../../../components/NextGenNavbar";
+import { Group, Link as NavLink } from "../../../components/Navbar";
 
 import NewTopic from "../../../components/CourseContent/NewTopic";
 import TopicCard from "../../../components/CourseContent/TopicCard";

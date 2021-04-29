@@ -10,10 +10,7 @@ import {
   Box
 } from "@chakra-ui/react";
 import CourseCard from "../components/CourseCard";
-import { Group, Link } from "./../components/NextGenNavbar"
-
-
-import moment from "moment";
+import { Group, Link } from "./../components/Navbar"
 
 import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
