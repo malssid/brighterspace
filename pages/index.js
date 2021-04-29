@@ -13,35 +13,16 @@ import {
 import CourseCard from "../components/CourseCard";
 import HomeDashboardMenu from "../components/NavMenus/HomeDashboard" 
 
-import { getSession, useSession } from "next-auth/client";
+import { getSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { query } from "../lib/db";
 
 export default function Home({ courses, setNavMenu }) {
-  const router = useRouter();
-  const [session, loading] = useSession();
 
   useEffect(() => {
-    if (!session) {
-      router.push("/account/sign-in");
-    } else {
-      setNavMenu(<HomeDashboardMenu active="courses"/>)
-    }
-  }, [loading]);
-
-  // @TODO: adjust Skeleton once courseCard is final
-  if (!session) {
-    return (
-      <>
-        <Stack>
-          <Skeleton height="20px" />
-          <Skeleton height="20px" />
-          <Skeleton height="20px" />
-        </Stack>
-      </>
-    );
-  }
+    setNavMenu(<HomeDashboardMenu active="courses"/>)
+  }, []);
 
   return (
     <Box mt={4}>
@@ -68,7 +49,10 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
 
   if (!session) {
-    return { props: {} };
+    return { redirect: {
+        permanent: false,
+        destination: '/account/sign-in'
+    } };
   }
 
   const courses = await query(
