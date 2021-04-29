@@ -7,6 +7,7 @@ import {
   Stack,
   SimpleGrid,
   Center,
+  Box
 } from "@chakra-ui/react";
 import CourseCard from "../components/CourseCard";
 import { Group, Link } from "./../components/NextGenNavbar"
@@ -51,7 +52,7 @@ export default function Home({ courses, setNavMenu }) {
   }
 
   return (
-    <Center mt={4} ml={{ base: "4", md: "0" }}>
+    <Box mt={4}>
       {/* <SimpleGrid columns={{sm: 1, lg: 2}} spacing="10px"> */}
       <SimpleGrid minChildWidth="200px" spacing="10px">
         {courses.map((course, idx) => (
@@ -67,7 +68,7 @@ export default function Home({ courses, setNavMenu }) {
           />
         ))}
       </SimpleGrid>
-    </Center>
+    </Box>
   );
 }
 

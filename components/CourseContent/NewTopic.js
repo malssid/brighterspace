@@ -48,7 +48,7 @@ export default function NewTopic({ cid }) {
   return (
     <>
       <Box pb="10px">
-        <Button onClick={onOpen}>New Topic</Button>
+        <Button onClick={onOpen}>Add Topic</Button>
       </Box>
 
       <Modal

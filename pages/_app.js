@@ -1,8 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import * as UI from "@chakra-ui/react";
 
-import Navbar from "../components/Navbar";
-
 import { Provider } from "next-auth/client";
 import theme from "../styles/theme";
 import NextHead from "next/head";
@@ -30,7 +28,7 @@ function MyApp({ Component, pageProps }) {
           {/* Reactor as an app specific provider? */}
           <UI.Flex
                 direction={{base: 'column', md: 'row'}}
-                align="flex-start"
+                align={{base: 'center', md: 'flex-start'}}
           >
             <NextGenNavbar pageTitle={pageTitle}>{navMenu}</NextGenNavbar>
             <Component 

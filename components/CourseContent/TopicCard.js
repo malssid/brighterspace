@@ -8,8 +8,8 @@ export default function TopicCard({ isInstructor, topic }) {
       borderRadius="lg"
       boxShadow="lg"
       bg="blue.50"
-      w="80"
       p={4}
+      w={{base: "90%", md:"80%", xl: "70%"}}
       color="blue.900"
       mb="4"
     >
@@ -29,8 +29,7 @@ export default function TopicCard({ isInstructor, topic }) {
             direction="column"
             cursor="pointer"
           >
-            <Heading>{topic.title}</Heading>
-            <Text>{topic.body}</Text>
+            <Heading size="xl">{topic.title}</Heading>
             <Badge mt={2} borderRadius="full" py={1} px={2} bg="blue.200">
               {topic.dateposted}
             </Badge>

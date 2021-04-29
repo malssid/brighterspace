@@ -14,15 +14,19 @@ export default function AnnouncementCard({ isInstructor, announcement }) {
       borderRadius="lg"
       boxShadow="lg"
       bg="blue.50"
-      w="80"
       p={4}
+      w={{base: "90%", md:"80%", xl: "70%"}}
       color="blue.900"
       mb="4"
       direction="column"
       align="center"
     >
-      {isInstructor && <DeleteAnnouncement cid={announcement.cid} aid={announcement.aid} />}
-      <Text>{announcement.body}</Text>
+      {isInstructor && (
+        <DeleteAnnouncement cid={announcement.cid} aid={announcement.aid} />
+      )}
+      <Text fontWeight="600" fontSize="20px">
+        {announcement.body}
+      </Text>
       <Badge mt={2} borderRadius="full" py={1} px={2} bg="blue.200">
         {announcement.dateposted}
       </Badge>
