@@ -105,16 +105,15 @@ export default function CourseHome({
     <Flex
       direction="column"
       justify="center"
-      p={8}
       borderRadius="md"
-      m={6}
+      px={4}
+      m={4}
       w="full"
     >
       <SimpleGrid
-        columns={{ base: 1, md: 2 }}
+        columns={{ base: 1, xl: 2 }}
         spacingX={6}
         spacingY={6}
-        minChildWidth="485px"
       >
         <Flex
           backgroundColor="blue.700"
@@ -125,24 +124,24 @@ export default function CourseHome({
           alignItems="center"
           flexDirection="column"
         >
-          <Heading size="4xl" color="blue.50">
+          <Heading textAlign="center" size="4xl" color="blue.50">
             {course.Name}
           </Heading>
-          <Heading size="md" mt={1} mb={{base: 4}} color="blue.100">
+          <Heading textAlign="center" size="md" mt={1} mb={{base: 4}} color="blue.100">
             {course.Description}
           </Heading>
           {membership[0].role === 1 && (
             <>
               <Divider borderColor="whiteAlpha.500" m="auto" />
               <Flex mt={{base: 4}} align="center" justify="center" direction="column">
-                <Heading size="lg" color="blue.100">
+                <Heading textAlign="center" size="lg" color="blue.100">
                   Instructor Tools
                 </Heading>
-                <HStack mt={2}>
+                <Stack mt={2} align="center" direction={{base: "column", lg:"row", xl:"column", "2xl": "row"}}>
                   <NewTopic cid={course.cid} />
                   <NewAnnouncement cid={course.cid} />
                   <NewAssignment cid={course.cid} />{" "}
-                </HStack>
+                </Stack>
               </Flex>
             </>
           )}
@@ -169,7 +168,7 @@ export default function CourseHome({
           p={8}
           textAlign="center"
         >
-          <Heading textAlign="center" mb={2} size="2xl" color="blue.50">
+          <Heading textAlign="center" mb={2} fontSize={{base: "24", sm: "28", md:"36"}} color="blue.50">
             Announcements
           </Heading>
           <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />
@@ -184,7 +183,7 @@ export default function CourseHome({
           </Stack>
         </Box>
         <Box backgroundColor="blue.700" boxShadow="md" borderRadius="lg" p={8}>
-          <Heading textAlign="center" mb={2} size="2xl" color="blue.50">
+          <Heading textAlign="center" mb={2} fontSize={{base: "28", md:"40"}} color="blue.50">
             Assignments
           </Heading>
           <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />

@@ -51,7 +51,7 @@ export default function NewAnnouncement({ cid }) {
   return (
     <>
       <Box pb="10px">
-        <Button onClick={onOpen}>Add Announcement</Button>
+        <Button onClick={onOpen} size="md" >Add Announcement</Button>
       </Box>
 
       <Modal

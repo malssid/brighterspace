@@ -8,8 +8,8 @@ export default function TopicCard({ isInstructor, topic }) {
       borderRadius="lg"
       boxShadow="lg"
       bg="blue.50"
-      w="80"
       p={4}
+      w={{base: "90%", md:"80%", xl: "70%"}}
       color="blue.900"
       mb="4"
     >

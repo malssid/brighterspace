@@ -9,7 +9,7 @@ const AssignmentCard = ({ isInstructor, assignment }) => {
       boxShadow="lg"
       bg="blue.50"
       p={4}
-      w="60%"
+      w={{base: "90%", md:"80%", xl: "70%"}}
       color="blue.900"
       mb="4"
       // height="150px">
