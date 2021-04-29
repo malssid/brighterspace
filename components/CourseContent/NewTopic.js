@@ -12,16 +12,15 @@ import {
   Button,
   Textarea,
   Spacer,
-  Alert,
-  AlertIcon,
+  useToast
 } from "@chakra-ui/react";
 
 import { useState } from "react";
 
 export default function NewTopic({ cid }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
-  const [posted, isPosted] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -35,11 +34,16 @@ export default function NewTopic({ cid }) {
     });
 
     if (result.status === 200) {
-      isPosted(true);
       setTimeout(() => {
         onClose();
       }, 1000);
       window.location.reload();
+      toast({
+        title: `Topic posted!`,
+        status: "success",
+        position: "top",
+        isClosable: true,
+      })
     } else {
       // Display some type of error
     }
@@ -64,12 +68,6 @@ export default function NewTopic({ cid }) {
           <ModalHeader>New Topic</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {posted && (
-              <Alert status="success">
-                <AlertIcon />
-                Topic posted
-              </Alert>
-            )}
             <Textarea
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter the topic title here"

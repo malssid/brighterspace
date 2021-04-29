@@ -12,8 +12,7 @@ import {
   Button,
   Textarea,
   Spacer,
-  Alert,
-  AlertIcon,
+  useToast
 } from "@chakra-ui/react";
 
 import { useState } from "react";
@@ -24,8 +23,8 @@ import { useState } from "react";
  */
 export default function NewAnnouncement({ cid }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
-  const [posted, isPosted] = useState(false);
   const [body, setBody] = useState("");
 
   async function postAnnouncement() {
@@ -38,11 +37,16 @@ export default function NewAnnouncement({ cid }) {
     });
 
     if (result.status === 200) {
-      isPosted(true);
       setTimeout(() => {
         onClose();
       }, 1000);
       window.location.reload();
+      toast({
+        title: `Announcement posted!`,
+        status: "success",
+        position: "top",
+        isClosable: true,
+      })
     } else {
       // Display some type of error
     }
@@ -67,12 +71,6 @@ export default function NewAnnouncement({ cid }) {
           <ModalHeader>New Announcement</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {posted && (
-              <Alert status="success">
-                <AlertIcon />
-                Announcement posted
-              </Alert>
-            )}
             <Textarea
               onChange={(e) => setBody(e.target.value)}
               placeholder="Enter your announcement text here"

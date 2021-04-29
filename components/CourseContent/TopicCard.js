@@ -1,6 +1,6 @@
 import { Flex, Text, Heading, Badge, Box } from "@chakra-ui/react";
 import NextLink from "next/link";
-import DeleteTopic from "./DeleteTopic";
+import TopicSettings from "./TopicSettings";
 
 export default function TopicCard({ isInstructor, topic }) {
   return (
@@ -15,7 +15,7 @@ export default function TopicCard({ isInstructor, topic }) {
     >
       {isInstructor && (
         <Flex align="center" direction="column">
-          <DeleteTopic cid={topic.cid} tid={topic.tid} />
+          <TopicSettings cid={topic.cid} tid={topic.tid} prevTitle={topic.title} prevBody={topic.body} />
         </Flex>
       )}
       <NextLink
