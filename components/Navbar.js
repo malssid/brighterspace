@@ -75,17 +75,17 @@ export function Link(props) {
     return (
       <UI.Box mb={2}>
         <UI.Button
-          onClick={props.onClick}
-          w="100%"
-          leftIcon={props.icon || <AttachmentIcon color="gray.500" />}
-          variant="ghost"
-          color="gray.300"
-          justifyContent="flex-start"
-          _hover={{
-            backgroundColor: props.active ? "gray.600" : "gray.700",
-          }}
-          fontWeight={props.active ? "600" : 300}
-          backgroundColor={props.active ? "gray.600" : undefined}
+            boxShadow="lg"
+            w="100%"
+            leftIcon={props.icon || <AttachmentIcon color="gray.500" />}
+            variant="ghost"
+            color="gray.300"
+            justifyContent="flex-start"
+            _hover={{
+              backgroundColor: props.active ? "gray.600" : "gray.700",
+            }}
+            fontWeight={props.active ? "600" : 300}
+            backgroundColor={props.active ? "gray.600" : "whiteAlpha.50"}
         >
           {props.text}
         </UI.Button>
@@ -99,6 +99,7 @@ export function Link(props) {
       <NextLink href={props.href || "/"}>
         <a>
           <UI.Button
+            boxShadow="lg"
             w="100%"
             leftIcon={props.icon || <AttachmentIcon color="gray.500" />}
             variant="ghost"
@@ -108,7 +109,7 @@ export function Link(props) {
               backgroundColor: props.active ? "gray.600" : "gray.700",
             }}
             fontWeight={props.active ? "600" : 300}
-            backgroundColor={props.active ? "gray.600" : undefined}
+            backgroundColor={props.active ? "gray.600" : "whiteAlpha.50"}
           >
             {props.text}
           </UI.Button>
@@ -135,7 +136,7 @@ export default function Navbar(props) {
     {/* Navbar container */}
     <UI.Box
       minWidth={{ base: "100vw", md: "300px" }}
-      h={{  }}
+      boxShadow="lg"
       marginRight={{ base: "0", md: "20px" }}
       bgColor="blackAlpha.600"
       // borderTopRightRadius={{ base: "0px", md: "35px" }}
