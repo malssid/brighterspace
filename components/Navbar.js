@@ -148,27 +148,31 @@ export default function Navbar(props) {
       <UI.Flex direction="column">
         <UI.Box align="center">
           {/* Application name */}
-          <UI.HStack justifyContent="space-between" align="center">
-            <NextLink href="/">
-              <a>
-                <UI.Image
-                  src="/brighterspacelogo.svg"
-                  alt="Brighterspace"
-                  w={{ base: "40vw", md: "250px" }}
-                />
-              </a>
-            </NextLink>
+          <UI.HStack justifyContent="space-between">
+            <UI.Box>
+              <NextLink href="/">
+                <a>
+                  <UI.Image
+                    src="/brighterspacelogo.svg"
+                    alt="Brighterspace"
+                    w={{ base: "40vw", md: "250px" }}
+                  />
+                </a>
+              </NextLink>
+            </UI.Box>
 
-            <UI.IconButton
-              display={{ base: "block", md: "none" }}
-              aria-label="Open menu"
-              fontSize="30px"
-              color="blue.200"
-              variant="ghost"
-              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-              onClick={onToggle}
-              colorScheme="whiteAlpha"
-            />
+            <UI.Box>
+              <UI.IconButton
+                display={{ base: "block", md: "none" }}
+                aria-label="Open menu"
+                fontSize="30px"
+                color="blue.200"
+                variant="ghost"
+                icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                onClick={onToggle}
+                colorScheme="whiteAlpha"
+              />
+            </UI.Box>
           </UI.HStack>
 
           {/* <UI.Heading>{props.pageTitle}</UI.Heading> */}
@@ -177,10 +181,11 @@ export default function Navbar(props) {
         {/* PageTitle */}
         <UI.Box 
           display={{ base: isOpen ? "block" : "none", md: "block" }}
-          marginTop={props.pageTitle ? 15 : 0}
+          // marginTop={props.pageTitle ? 15 : 0}
           // align="center"
           >
-          <UI.Heading size="md" color="whiteAlpha.800">{props.pageTitle}</UI.Heading>
+
+          {/* <UI.Heading size="md" color="whiteAlpha.800">{props.pageTitle}</UI.Heading> */}
         </UI.Box>
 
         {/* Children passed to the navbar will go here... */}
@@ -192,24 +197,7 @@ export default function Navbar(props) {
 
     </UI.Box>
 
-    <About>
-          <UI.Text
-            onClick={() => setCreditsVisibility(true)}
-            display={{ base: "none", md: "block" }}
-            maxW="300px"
-            position="fixed"
-            bottom={5}
-            left={5}
-            fontSize="9pt"
-            color="whiteAlpha.400"
-            zIndex="0"
-          >
-            &copy; Brighterspace 2021 <br />
-            URI CSC 372 Spring 2021 <br />
-            {process.env.NODE_ENV} {process.env.VERCEL_GIT_COMMIT_SHA} 
-            (Built{" "}{process.env.builddate})
-          </UI.Text>
-        </About>
+    <About onClick={() => setCreditsVisibility(true)} />
     </>
   );
 }

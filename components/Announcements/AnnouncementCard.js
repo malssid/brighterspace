@@ -1,4 +1,4 @@
-import { Flex, Badge, Text, Spacer } from "@chakra-ui/react";
+import { Flex, Badge, Text, Box, Spacer } from "@chakra-ui/react";
 import DeleteAnnouncement from "./DeleteAnnouncement";
 
 import { useState } from "react";
@@ -21,6 +21,7 @@ export default function AnnouncementCard({ isInstructor, announcement }) {
       direction="column"
       align="center"
     >
+      <Box>
       {isInstructor && (
         <DeleteAnnouncement cid={announcement.cid} aid={announcement.aid} />
       )}
@@ -30,6 +31,7 @@ export default function AnnouncementCard({ isInstructor, announcement }) {
       <Badge mt={2} borderRadius="full" py={1} px={2} bg="blue.200">
         {announcement.dateposted}
       </Badge>
+      </Box>
     </Flex>
   );
 }

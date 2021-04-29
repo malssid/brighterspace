@@ -19,6 +19,7 @@ export default function CourseCard({
   nextAssignmentDuedate,
   nextAssignmentAssnid,
 }) {
+
   return (
     <Flex
       maxW={"445px"}

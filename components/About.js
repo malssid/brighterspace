@@ -16,7 +16,25 @@ export default function About(props) {
 
     return (
         <>
-            <Box onClick={onOpen} cursor="pointer">{props.children}</Box>
+            <Box 
+                onClick={onOpen} 
+                cursor="pointer"
+                display={{ base: "none", md: "block" }}
+                maxW="300px"
+                position="fixed"
+                bottom={5}
+                left={5}
+                fontSize="9pt"
+                color="whiteAlpha.400"
+                zIndex="0"
+                >
+
+                &copy; Brighterspace 2021 <br />
+                URI CSC 372 Spring 2021 <br />
+                {process.env.NODE_ENV} {process.env.VERCEL_GIT_COMMIT_SHA} 
+                (Built{" "}{process.env.builddate})
+
+            </Box>
 
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
