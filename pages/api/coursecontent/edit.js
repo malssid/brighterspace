@@ -3,7 +3,7 @@ import { getSession } from "next-auth/client";
 
 export default async function (req, res) {
   const session = await getSession({ req });
-
+  
   if (session) {
     // Signed in
 
@@ -22,8 +22,8 @@ export default async function (req, res) {
 
     if (role === 1) {
       const result = await query(
-        "INSERT INTO `topic` (`cid`, `dateposted`, `title`, `body`) VALUES (?, CURRENT_TIMESTAMP, ?, ?)",
-        [req.body.cid, req.body.title, req.body.body]
+        "UPDATE `topic` SET title = ?, body = ? WHERE cid = ? AND tid = ?",
+        [req.body.title, req.body.body, req.body.cid, req.body.tid]
       );
 
       if (result) {

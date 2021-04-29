@@ -22,8 +22,8 @@ export default async function (req, res) {
 
     if (role === 1) {
       const result = await query(
-        "INSERT INTO `topic` (`cid`, `dateposted`, `title`, `body`) VALUES (?, CURRENT_TIMESTAMP, ?, ?)",
-        [req.body.cid, req.body.title, req.body.body]
+        "UPDATE `announcements` set body = ? WHERE cid = ? AND aid = ?",
+        [req.body.body, req.body.cid, req.body.aid]
       );
 
       if (result) {

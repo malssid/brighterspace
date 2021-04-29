@@ -1,6 +1,6 @@
 import NextLink from "next/link";
 import { Heading, Text, Badge, Box, Flex } from "@chakra-ui/layout";
-import DeleteAssignment from "./DeleteAssignment";
+import AssignmentSettings from "./AssignmentSettings";
 
 const AssignmentCard = ({ isInstructor, assignment }) => {
   return (
@@ -16,7 +16,7 @@ const AssignmentCard = ({ isInstructor, assignment }) => {
     >
       {isInstructor && (
         <Flex align="center" direction="column">
-          <DeleteAssignment cid={assignment.cid} assnid={assignment.assnid} />
+          <AssignmentSettings cid={assignment.cid} assnid={assignment.assnid} prevTitle={assignment.title} prevBody={assignment.body} prevSubmissiontype={assignment.submissiontype}/>
         </Flex>
       )}
       <NextLink

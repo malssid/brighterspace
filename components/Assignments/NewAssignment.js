@@ -12,17 +12,16 @@ import {
   Button,
   Textarea,
   Spacer,
-  Alert,
-  AlertIcon,
   Select,
+  useToast
 } from "@chakra-ui/react";
 
 import { useState } from "react";
 
 export default function NewAssignment({ cid }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
-  const [posted, isPosted] = useState(false);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [submissiontype, setSubmissionType] = useState("");
@@ -38,11 +37,16 @@ export default function NewAssignment({ cid }) {
     });
 
     if (result.status === 200) {
-      isPosted(true);
       setTimeout(() => {
         onClose();
       }, 1000);
       window.location.reload();
+      toast({
+        title: `Assignment posted!`,
+        status: "success",
+        position: "top",
+        isClosable: true,
+      })
     } else {
       // Display some type of error
     }
@@ -67,12 +71,6 @@ export default function NewAssignment({ cid }) {
           <ModalHeader>New Assignment</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {posted && (
-              <Alert status="success">
-                <AlertIcon />
-                Assignment posted
-              </Alert>
-            )}
             <Textarea
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter your assignment title here"
