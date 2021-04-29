@@ -75,6 +75,7 @@ export function Link(props) {
     return (
       <UI.Box mb={2}>
         <UI.Button
+            onClick={props.onClick}
             boxShadow="lg"
             w="100%"
             leftIcon={props.icon || <AttachmentIcon color="gray.500" />}
