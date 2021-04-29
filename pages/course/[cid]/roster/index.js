@@ -12,10 +12,15 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { query } from "../../../../lib/db";
 
-const Roster = ({ roster }) => {
+const Roster = ({ roster, setPageTitle }) => {
+
+  useEffect(() => {
+    setPageTitle("Roster")
+  }, [])
+
   return (
     <>
       <Box minHeight="100vh">

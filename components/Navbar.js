@@ -154,7 +154,7 @@ export default function Navbar(props) {
                 <UI.Image
                   src="/brighterspacelogo.svg"
                   alt="Brighterspace"
-                  w={{ sm: "60vw", md: "250px" }}
+                  w={{ base: "40vw", md: "250px" }}
                 />
               </a>
             </NextLink>
@@ -172,6 +172,15 @@ export default function Navbar(props) {
           </UI.HStack>
 
           {/* <UI.Heading>{props.pageTitle}</UI.Heading> */}
+        </UI.Box>
+
+        {/* PageTitle */}
+        <UI.Box 
+          display={{ base: isOpen ? "block" : "none", md: "block" }}
+          marginTop={props.pageTitle ? 15 : 0}
+          // align="center"
+          >
+          <UI.Heading size="md" color="whiteAlpha.800">{props.pageTitle}</UI.Heading>
         </UI.Box>
 
         {/* Children passed to the navbar will go here... */}

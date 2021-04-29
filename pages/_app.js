@@ -11,7 +11,7 @@ import Navbar from "../components/Navbar";
 
 function MyApp({ Component, pageProps }) {
   const [pageTitle, setPageTitle] = useState(undefined);
-  const [navMenu, setNavMenu] = useState(<></>);
+  const [navMenu, setNavMenu] = useState(undefined);
   
   return (
     <p>
