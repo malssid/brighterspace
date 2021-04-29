@@ -15,11 +15,14 @@ import {
 import React, { useEffect } from "react";
 import { query } from "../../../../lib/db";
 
-const Roster = ({ roster, setPageTitle }) => {
+import CourseDashNav from "../../../../components/NavMenus/CourseDashboard"
+
+
+const Roster = ({ roster, cid, setPageTitle, setNavMenu }) => {
 
   useEffect(() => {
-    setPageTitle("Roster")
-  }, [])
+    setNavMenu(<CourseDashNav cid={cid} active="roster" />);
+  }, []);
 
   return (
     <>
@@ -63,6 +66,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      cid: context.query.cid,
       roster,
     },
   };
