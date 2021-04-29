@@ -17,6 +17,12 @@ const theme = extendTheme({
     global: {
       body: {
         bg: "blue.900",
+        height: "100%",
+        overflow: "auto"
+      },
+      html: {
+        overflow: "hidden",
+        height: "100%"
       },
       a: {
         textDecor: "none"

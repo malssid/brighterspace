@@ -12,10 +12,18 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { query } from "../../../../lib/db";
 
-const Roster = ({ roster }) => {
+import CourseDashNav from "../../../../components/NavMenus/CourseDashboard"
+
+
+const Roster = ({ roster, cid, setPageTitle, setNavMenu }) => {
+
+  useEffect(() => {
+    setNavMenu(<CourseDashNav cid={cid} active="roster" />);
+  }, []);
+
   return (
     <>
       <Box minHeight="100vh">
@@ -58,6 +66,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      cid: context.query.cid,
       roster,
     },
   };

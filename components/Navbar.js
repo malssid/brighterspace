@@ -69,13 +69,15 @@ export function Group(props) {
 }
 
 export function Link(props) {
-  return (
-    <UI.Box mb={2}>
-      <NextLink href={props.href || "/"}>
-        <a>
-          <UI.Button
+
+  // Non-next link buttons
+  if(!props.href){
+    return (
+      <UI.Box mb={2}>
+        <UI.Button
+            boxShadow="lg"
             w="100%"
-            leftIcon={<AttachmentIcon color="gray.500" />}
+            leftIcon={props.icon || <AttachmentIcon color="gray.500" />}
             variant="ghost"
             color="gray.300"
             justifyContent="flex-start"
@@ -83,7 +85,31 @@ export function Link(props) {
               backgroundColor: props.active ? "gray.600" : "gray.700",
             }}
             fontWeight={props.active ? "600" : 300}
-            backgroundColor={props.active ? "gray.600" : undefined}
+            backgroundColor={props.active ? "gray.600" : "whiteAlpha.50"}
+        >
+          {props.text}
+        </UI.Button>
+    </UI.Box>
+    )
+  }
+
+  // Next link buttons
+  return (
+    <UI.Box mb={2}>
+      <NextLink href={props.href || "/"}>
+        <a>
+          <UI.Button
+            boxShadow="lg"
+            w="100%"
+            leftIcon={props.icon || <AttachmentIcon color="gray.500" />}
+            variant="ghost"
+            color="gray.300"
+            justifyContent="flex-start"
+            _hover={{
+              backgroundColor: props.active ? "gray.600" : "gray.700",
+            }}
+            fontWeight={props.active ? "600" : 300}
+            backgroundColor={props.active ? "gray.600" : "whiteAlpha.50"}
           >
             {props.text}
           </UI.Button>
@@ -93,7 +119,7 @@ export function Link(props) {
   );
 }
 
-export default function NextGenNavbar(props) {
+export default function Navbar(props) {
   // Defines whether the navbar menu items are visible or not
   const { isOpen, onToggle } = UI.useDisclosure();
 
@@ -101,42 +127,65 @@ export default function NextGenNavbar(props) {
   const [showCredits, setCreditsVisibility] = useState(false);
 
   return (
+    <>
+    {/* Spacing between page content and fixed navbar  */}
+    <UI.Box 
+      minWidth={{ base: "100vw", md: "320px" }} 
+      h={{ base: "100%", md: "100vh" }}></UI.Box>
+    
+    {/* Navbar container */}
     <UI.Box
       minWidth={{ base: "100vw", md: "300px" }}
-      h={{ base: "100%", md: "100vh" }}
+      boxShadow="lg"
       marginRight={{ base: "0", md: "20px" }}
       bgColor="blackAlpha.600"
-      borderTopRightRadius={{ base: "0px", md: "35px" }}
+      // borderTopRightRadius={{ base: "0px", md: "35px" }}
       borderBottomRightRadius={{ base: "0px", md: "35px" }}
       p="5"
+      position={{ base: "relative", md: "fixed" }}
+      zIndex="100"
     >
       <UI.Flex direction="column">
         <UI.Box align="center">
           {/* Application name */}
-          <UI.HStack justifyContent="space-between" align="center">
-            <NextLink href="/">
-              <a>
-                <UI.Image
-                  src="/brighterspacelogo.svg"
-                  alt="Brighterspace"
-                  w={{ sm: "60vw", md: "250px" }}
-                />
-              </a>
-            </NextLink>
+          <UI.HStack justifyContent="space-between">
+            <UI.Box>
+              <NextLink href="/">
+                <a>
+                  <UI.Image
+                    src="/brighterspacelogo.svg"
+                    alt="Brighterspace"
+                    w={{ base: "40vw", md: "250px" }}
+                  />
+                </a>
+              </NextLink>
+            </UI.Box>
 
-            <UI.IconButton
-              display={{ base: "block", md: "none" }}
-              aria-label="Open menu"
-              fontSize="30px"
-              color="blue.200"
-              variant="ghost"
-              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-              onClick={onToggle}
-              colorScheme="whiteAlpha"
-            />
+            <UI.Box>
+              <UI.IconButton
+                display={{ base: "block", md: "none" }}
+                aria-label="Open menu"
+                fontSize="30px"
+                color="blue.200"
+                variant="ghost"
+                icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                onClick={onToggle}
+                colorScheme="whiteAlpha"
+              />
+            </UI.Box>
           </UI.HStack>
 
           {/* <UI.Heading>{props.pageTitle}</UI.Heading> */}
+        </UI.Box>
+
+        {/* PageTitle */}
+        <UI.Box 
+          display={{ base: isOpen ? "block" : "none", md: "block" }}
+          // marginTop={props.pageTitle ? 15 : 0}
+          // align="center"
+          >
+
+          {/* <UI.Heading size="md" color="whiteAlpha.800">{props.pageTitle}</UI.Heading> */}
         </UI.Box>
 
         {/* Children passed to the navbar will go here... */}
@@ -144,23 +193,11 @@ export default function NextGenNavbar(props) {
           {props.children}
         </UI.Box>
 
-        <About>
-          <UI.Text
-            onClick={() => setCreditsVisibility(true)}
-            display={{ base: "none", md: "block" }}
-            maxW="300px"
-            position="fixed"
-            bottom={5}
-            fontSize="9pt"
-            color="whiteAlpha.400"
-          >
-            &copy; Brighterspace 2021 <br />
-            URI CSC 372 Spring 2021 <br />
-            {process.env.NODE_ENV} {process.env.appversion} (Built{" "}
-            {process.env.builddate})
-          </UI.Text>
-        </About>
       </UI.Flex>
+
     </UI.Box>
+
+    <About onClick={() => setCreditsVisibility(true)} />
+    </>
   );
 }

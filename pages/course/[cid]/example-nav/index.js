@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Group, Link } from "./../../../../components/NextGenNavbar"
+import { Group, Link } from "./../../../../components/Navbar"
 
 const Test = (props) => {
 

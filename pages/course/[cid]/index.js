@@ -23,10 +23,13 @@ import NewAnnouncement from "../../../components/Announcements/NewAnnouncement";
 import AnnouncementCard from "../../../components/Announcements/AnnouncementCard";
 import NewAssignment from "../../../components/Assignments/NewAssignment";
 import AssignmentCard from "../../../components/Assignments/AssignmentCard";
-import { Group, Link as NavLink } from "../../../components/NextGenNavbar";
+import { Group, Link as NavLink } from "../../../components/Navbar";
 
 import NewTopic from "../../../components/CourseContent/NewTopic";
 import TopicCard from "../../../components/CourseContent/TopicCard";
+
+import CourseDashNav from "../../../components/NavMenus/CourseDashboard"
+
 import { query } from "../../../lib/db";
 
 // @TODO - refactor for seprate dashboards for student and teachers
@@ -52,24 +55,7 @@ export default function CourseHome({
   }, []);
 
   useEffect(() => {
-    setNavMenu(
-      <Group title="Course">
-        <NavLink
-          href={`/course/${course.cid}`}
-          text="Dashboard"
-          active="true"
-        ></NavLink>
-        <NavLink
-          href={`/course/${course.cid}/announcements`}
-          text="Announcements"
-        ></NavLink>
-        <NavLink href={`/course/${course.cid}/roster`} text="Roster"></NavLink>
-        <NavLink
-          href={`/course/${course.cid}/assignments`}
-          text="Assignments"
-        ></NavLink>
-      </Group>
-    );
+    setNavMenu(<CourseDashNav cid={course.cid} active="dashboard" />);
   }, []);
 
   // @TODO: Make a functional loading component?
@@ -196,6 +182,19 @@ export default function CourseHome({
               />
             ))}
           </Stack>
+        </Box>
+        <Box
+          backgroundColor="blue.700"
+          borderRadius="lg"
+          boxShadow="md"
+          p={8}
+          textAlign="center"
+        >
+          <Heading textAlign="center" mb={2} fontSize={{base: "24", sm: "28", md:"36"}} color="blue.50">
+            Grades
+          </Heading>
+          <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />
+          
         </Box>
       </SimpleGrid>
     </Flex>

@@ -24,19 +24,16 @@ export default async function (req, res) {
                 "SELECT * FROM gradeItems WHERE gid = ? AND cid = ? LIMIT 1",
                 [req.body.gid, req.body.cid]
             )
-
-            for (var key in gradebookItem) {
-                if(req.body[key] != null){
-                  gradebookItem[key] = req.body[key] 
+            
+            for (var key in gradebookItem[0]) {
+                if(req.body[key]){
+                  gradebookItem[0][key] = req.body[key] 
                 }             
             }
 
-            console.log(gradebookItem)
-
-
             const result = query(
-                "REPLACE INTO gradeItems (gid, cid, name, max_score) VALUES (?, ?, ?, ?)",
-                [gradebookItem.gid, gradebookItem.cid, gradebookItem.name, gradebookItem.max_score]
+                "REPLACE INTO gradeItems VALUES (?, ?, ?, ?)",
+                [gradebookItem[0].gid, gradebookItem[0].cid, gradebookItem[0].name, gradebookItem[0].max_score]
               );
 
             res.status(200);
