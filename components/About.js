@@ -11,6 +11,8 @@ import {
     Button,
     useDisclosure } from '@chakra-ui/react'
 
+import {version} from "../package.json"
+
 export default function About(props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -31,20 +33,20 @@ export default function About(props) {
 
                 &copy; Brighterspace 2021 <br />
                 URI CSC 372 Spring 2021 <br />
-                {process.env.NODE_ENV} {process.env.VERCEL_GIT_COMMIT_SHA} 
-                (Built{" "}{process.env.builddate})
+                {process.env.NODE_ENV} {version} {" "}
+                (Built {" "} {process.env.builddate})
 
             </Box>
 
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader>Brighterspace {process.env.appversion} </ModalHeader>
+                <ModalHeader>Brighterspace {version} </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     Brighterspace, a better <b>Learning</b> Management System <br />
                     
-                    {process.env.NODE_ENV} {process.env.appversion} (Built {process.env.builddate})<br />
+                    {process.env.NODE_ENV} {version}  {" "} (Built {process.env.builddate})<br />
 
                     &copy; Brighterspace 2021 <br /><br />
                     <b>Contributors:</b> @malssid, @bendahrooge <br /><br />
