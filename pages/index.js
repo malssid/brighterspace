@@ -9,8 +9,9 @@ import {
   Center,
   Box
 } from "@chakra-ui/react";
+
 import CourseCard from "../components/CourseCard";
-import { Group, Link } from "./../components/Navbar"
+import HomeDashboardMenu from "../components/NavMenus/HomeDashboard" 
 
 import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -28,11 +29,7 @@ export default function Home({ courses, setNavMenu }) {
   }, [loading]);
 
   useEffect( () => {
-    setNavMenu(
-      <Group title="Course">
-        <Link href="/" text="Your Courses" active="true"></Link>
-      </Group>
-    )
+    setNavMenu(<HomeDashboardMenu active="courses"/>)
   }, []);
 
   // @TODO: adjust Skeleton once courseCard is final

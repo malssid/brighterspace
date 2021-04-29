@@ -25,7 +25,7 @@ export default function LoginForm({ csrfToken, error }) {
         align="center"
       >
         <Heading size="2xl" fontSize="45px" mb={4}>Login</Heading>
-        <Text>Login with your email and Brighterspace password.</Text>
+        <Text align="center">Login with your email and Brighterspace password.</Text>
         {error && (
           <Alert status="error">
             <AlertIcon />
