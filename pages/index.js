@@ -25,12 +25,10 @@ export default function Home({ courses, setNavMenu }) {
   useEffect(() => {
     if (!session) {
       router.push("/account/sign-in");
+    } else {
+      setNavMenu(<HomeDashboardMenu active="courses"/>)
     }
   }, [loading]);
-
-  useEffect( () => {
-    setNavMenu(<HomeDashboardMenu active="courses"/>)
-  }, []);
 
   // @TODO: adjust Skeleton once courseCard is final
   if (!session) {
