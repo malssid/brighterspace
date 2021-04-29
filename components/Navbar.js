@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import NextLink from "next/link";
 
 import * as UI from "@chakra-ui/react";
@@ -12,6 +11,7 @@ import {
 } from "@chakra-ui/icons";
 
 import About from "./About";
+
 
 export function Search(props) {
   return (
