@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 
+import { useRouter } from "next/router"
 import { useState, useEffect } from "react";
 
 export default function AssignmentSettings({
@@ -33,6 +34,7 @@ export default function AssignmentSettings({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const router = useRouter();
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -43,6 +45,8 @@ export default function AssignmentSettings({
     setBody(prevBody);
     setSubmissionType(prevSubmissiontype);
   }, [isOpen]);
+
+  const refreshData = () => router.replace(router.asPath);
 
   async function RemoveAssignment() {
     const result = await fetch("../../../api/assignments/delete", {
@@ -57,7 +61,7 @@ export default function AssignmentSettings({
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Assignment deleted!`,
         status: "success",
@@ -82,7 +86,7 @@ export default function AssignmentSettings({
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Assignment edited!`,
         status: "success",

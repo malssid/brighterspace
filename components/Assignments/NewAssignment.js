@@ -16,16 +16,20 @@ import {
   useToast
 } from "@chakra-ui/react";
 
+import { useRouter } from "next/router"
 import { useState } from "react";
 
 export default function NewAssignment({ cid }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const router = useRouter();
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [submissiontype, setSubmissionType] = useState("");
   const duedate = "2021-05-05 00:00:00" // Add state for date/time of the duedate
+
+  const refreshData = () => router.replace(router.asPath);
 
   async function postAssignment() {
     const result = await fetch("../../../api/assignments/new", {
@@ -40,7 +44,7 @@ export default function NewAssignment({ cid }) {
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Assignment posted!`,
         status: "success",
