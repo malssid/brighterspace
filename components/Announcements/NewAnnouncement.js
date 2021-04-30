@@ -15,6 +15,7 @@ import {
   useToast
 } from "@chakra-ui/react";
 
+import { useRouter } from "next/router"
 import { useState } from "react";
 
 /**
@@ -24,8 +25,11 @@ import { useState } from "react";
 export default function NewAnnouncement({ cid }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const router = useRouter();
 
   const [body, setBody] = useState("");
+
+  const refreshData = () => router.replace(router.asPath);
 
   async function postAnnouncement() {
     const result = await fetch("../../../api/announcements/new", {
@@ -40,7 +44,7 @@ export default function NewAnnouncement({ cid }) {
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Announcement posted!`,
         status: "success",

@@ -20,11 +20,13 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 export default function TopicSettings({ cid, tid, prevTitle, prevBody }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const router = useRouter();
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -33,6 +35,8 @@ export default function TopicSettings({ cid, tid, prevTitle, prevBody }) {
     setTitle(prevTitle);
     setBody(prevBody);
   }, [isOpen]);
+
+  const refreshData = () => router.replace(router.asPath);
 
   async function RemoveTopic() {
     const result = await fetch("../../../api/coursecontent/delete", {
@@ -47,7 +51,7 @@ export default function TopicSettings({ cid, tid, prevTitle, prevBody }) {
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Topic deleted!`,
         status: "success",
@@ -72,7 +76,7 @@ export default function TopicSettings({ cid, tid, prevTitle, prevBody }) {
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Topic edited!`,
         status: "success",

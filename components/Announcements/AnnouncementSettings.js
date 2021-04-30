@@ -20,17 +20,21 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 
+import { useRouter } from "next/router"
 import { useState, useEffect } from "react";
 
 export default function AnnouncementSettings({ cid, aid, prevBody }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const router = useRouter();
 
   const [body, setBody] = useState("");
 
   useEffect(() => {
     setBody(prevBody);
   }, [isOpen]);
+
+  const refreshData = () => router.replace(router.asPath);
 
   async function RemoveAnnouncement() {
     const result = await fetch("../../../api/announcements/delete", {
@@ -45,7 +49,7 @@ export default function AnnouncementSettings({ cid, aid, prevBody }) {
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Announcement deleted!`,
         status: "success",
@@ -70,7 +74,7 @@ export default function AnnouncementSettings({ cid, aid, prevBody }) {
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Announcement edited!`,
         status: "success",

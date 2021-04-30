@@ -12,17 +12,21 @@ import {
   Button,
   Textarea,
   Spacer,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function NewTopic({ cid }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const router = useRouter();
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
+  const refreshData = () => router.replace(router.asPath);
 
   async function postTopic() {
     const result = await fetch("../../../api/coursecontent/new", {
@@ -37,13 +41,13 @@ export default function NewTopic({ cid }) {
       setTimeout(() => {
         onClose();
       }, 1000);
-      window.location.reload();
+      refreshData();
       toast({
         title: `Topic posted!`,
         status: "success",
         position: "top",
         isClosable: true,
-      })
+      });
     } else {
       // Display some type of error
     }
