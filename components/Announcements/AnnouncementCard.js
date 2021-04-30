@@ -22,7 +22,7 @@ export default function AnnouncementCard({ isInstructor, announcement }) {
       align="center"
     >
       <Box>
-      {isInstructor && (
+      {isInstructor === 1 && (
         <AnnouncementSettings cid={announcement.cid} aid={announcement.aid} prevBody={announcement.body} />
       )}
       <Text fontWeight="600" fontSize="20px">

@@ -14,7 +14,7 @@ const AssignmentCard = ({ isInstructor, assignment }) => {
       mb="4"
       // height="150px">
     >
-      {isInstructor && (
+      {isInstructor === 1 && (
         <Flex align="center" direction="column">
           <AssignmentSettings cid={assignment.cid} assnid={assignment.assnid} prevTitle={assignment.title} prevBody={assignment.body} prevSubmissiontype={assignment.submissiontype}/>
         </Flex>

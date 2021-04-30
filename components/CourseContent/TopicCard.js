@@ -13,7 +13,7 @@ export default function TopicCard({ isInstructor, topic }) {
       color="blue.900"
       mb="4"
     >
-      {isInstructor && (
+      {isInstructor === 1 && (
         <Flex align="center" direction="column">
           <TopicSettings cid={topic.cid} tid={topic.tid} prevTitle={topic.title} prevBody={topic.body} />
         </Flex>
