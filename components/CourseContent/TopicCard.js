@@ -29,7 +29,7 @@ export default function TopicCard({ isInstructor, topic }) {
             direction="column"
             cursor="pointer"
           >
-            <Heading size="xl">{topic.title}</Heading>
+            <Heading align="center" size="xl">{topic.title}</Heading>
             <Badge mt={2} borderRadius="full" py={1} px={2} bg="blue.200">
               {topic.dateposted}
             </Badge>
