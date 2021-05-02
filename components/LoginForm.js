@@ -17,7 +17,7 @@ export default function LoginForm({ csrfToken, error }) {
         borderRadius="lg"
         boxShadow="lg"
         bg="blue.50"
-        w="400px"
+        w={{base: "300px", sm: "400px"}}
         p={4}
         color="blue.900"
         mb="4"
