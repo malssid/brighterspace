@@ -91,7 +91,7 @@ export async function getServerSideProps(context) {
   );
 
   const coursesWithoutAssn = await query(
-    "select * from(select courses.Name, courses.Description, courses.Term, count(assignments.cid) as numAssn from courses left join assignments on courses.cid = assignments.cid, memberships where memberships.pid = ? AND memberships.cid = courses.cid group by courses.cid) as noAssn where noAssn.numAssn = 0",
+    "select * from(select courses.Name, courses.cid, courses.Description, courses.Term, count(assignments.cid) as numAssn from courses left join assignments on courses.cid = assignments.cid, memberships where memberships.pid = ? AND memberships.cid = courses.cid group by courses.cid) as noAssn where noAssn.numAssn = 0",
     [session.user.id]
   );
   
