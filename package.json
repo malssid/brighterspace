@@ -1,6 +1,6 @@
 {
   "name": "brighterspace",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "scripts": {
     "load": "set -o allexport; source .env.local; set +o allexport;",
