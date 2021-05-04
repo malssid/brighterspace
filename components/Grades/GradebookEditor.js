@@ -1,6 +1,6 @@
 // Similar layout to GradeManger, but allows inserting/updating specific user's grades instead
 
-import { Heading, Box, Editable, EditablePreview, EditableInput, Button } from "@chakra-ui/react";
+import { Heading, Box, Editable, EditablePreview, EditableInput, Flex } from "@chakra-ui/react";
 import { Table, Thead, Tr, Th, Td, Tbody, useToast } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
@@ -53,9 +53,9 @@ function GradebookEditor(props) {
     }
     
     return (
-    <Container>
+      <Flex direction="column" justify="center" borderRadius="md" m={4} w="full">
     <Box>
-      <Heading color="blue.50">
+      <Heading align="center" size="2xl" mb={4} color="blue.50">
         <Link href={`/course/${props.gradeItemInfo[0].cid}/grades`}>Grade Items </Link> 
           &gt; {props.gradeItemInfo[0].name}</Heading>
     </Box>
@@ -85,7 +85,7 @@ function GradebookEditor(props) {
         </Tbody>
         </Table>
     </Box>
-    </Container>
+    </Flex>
     )
 }
 

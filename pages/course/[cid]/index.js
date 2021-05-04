@@ -95,6 +95,7 @@ export default function CourseHome({
       px={4}
       m={4}
       w="full"
+      
     >
       <SimpleGrid
         columns={{ base: 1, xl: 2 }}
