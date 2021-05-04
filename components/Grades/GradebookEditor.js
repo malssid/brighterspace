@@ -1,4 +1,4 @@
-// Allows users with instructor permissions to edit the course shell's grade items
+// Similar layout to GradeManger, but allows inserting/updating specific user's grades instead
 
 import { Heading, Box, Editable, EditablePreview, EditableInput, Button } from "@chakra-ui/react";
 import { Table, Thead, Tr, Th, Td, Tbody, useToast } from "@chakra-ui/react";
@@ -8,11 +8,11 @@ import Container from "../Container"
 import NewGradeItem from "./NewGradeItem"
 
 import {useEffect, useState} from "react"
-import useSWR from 'swr'
 import Link from "next/link"
+import useSWR from 'swr'
 
 
-function GradeManager(props) {
+function GradebookEditor(props) {
     const toast = useToast()
 
     const [gradeItems, setGradeItems] = useState(props.gradeItems);
@@ -22,28 +22,29 @@ function GradeManager(props) {
 
     }
 
-    function postUpdatedItem(gid, updatedData){
-      fetch('/api/grades/info', {
+    function postUpdatedItem(gid, pid, updatedData){
+      fetch('/api/grades/update', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
           ...updatedData,
-          gid: gid,
-          cid: props.membership.cid
+          gid,
+          cid: props.cid,
+          pid
         })
       }).then(data => {
         if(data.status){
           toast({
             title: "Updated",
-            description: "Grade item has been updated",
+            description: "Grade has been updated",
             status: "success",
           })
         }else{
           toast({
             title: "Error ",
-            description: "The grade item could not be updated",
+            description: "The grade could not be updated",
             status: "error",
           })
         }
@@ -54,40 +55,28 @@ function GradeManager(props) {
     return (
     <Container>
     <Box>
-      <Heading color="blue.50">Grade Items</Heading>
+      <Heading color="blue.50">
+        <Link href={`/course/${props.gradeItemInfo[0].cid}/grades`}>Grade Items </Link> 
+          &gt; {props.gradeItemInfo[0].name}</Heading>
     </Box>
-    <NewGradeItem cid={props.membership.cid} />
     <Box>
       <Table>
         <Thead>
           <Tr>
-            <Th>Name</Th>
-            <Th>Max Score</Th>
-            <Th>Enter Grades</Th>
+            <Th>Student Name</Th>
+            <Th>Grade</Th>
           </Tr>
         </Thead>
         <Tbody>
-        {gradeItems && gradeItems.map((item, key) => {
+        {props.grades && props.grades.map((item, key) => {
           return (
             <Tr key={key} color="blue.50">
+              <Td>{item.First_name} {item.Last_name} {props.gid}</Td>
               <Td>
-                <Editable defaultValue={item.name} onSubmit={nextval => postUpdatedItem(item.gid, {name: nextval})}>
+                <Editable defaultValue={item.grade === null ? "Not assigned" : item.grade} onSubmit={nextval => postUpdatedItem(item.gid, item.pid, {grade: nextval})}>
                   <EditablePreview/>
                   <EditableInput/>
                 </Editable>
-              </Td>
-              <Td>
-                <Editable defaultValue={item.max_score} onSubmit={nextval => postUpdatedItem(item.gid, {max_score: nextval})}>
-                  <EditablePreview/>
-                  <EditableInput/>
-                </Editable>
-              </Td>
-              <Td>
-                <Link href={`/course/${props.membership.cid}/grades/${item.gid}`}>
-                  <a>
-                    <Button colorScheme="blue">Enter/Edit Grades</Button>
-                  </a>
-                </Link>
               </Td>
             </Tr>
           )
@@ -100,4 +89,4 @@ function GradeManager(props) {
     )
 }
 
-export default GradeManager
+export default GradebookEditor

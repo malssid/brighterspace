@@ -2,6 +2,7 @@
 // on a related part of the course (e.g., a submission)
 
 import React from 'react'
+import * as UI from '@chakra-ui/react'
 
 /**
  * 
@@ -11,9 +12,10 @@ import React from 'react'
  */
 function GradeItemEditor({pid, gid}) {
     return (
-        <div>
+        <UI.Box>
             
-        </div>
+            
+        </UI.Box>
     )
 }
 
