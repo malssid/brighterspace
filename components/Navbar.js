@@ -131,7 +131,7 @@ export default function Navbar(props) {
     <>
     {/* Spacing between page content and fixed navbar  */}
     <UI.Box 
-      minWidth={{ base: "100vw", md: "320px" }} 
+      minWidth={{ base: "100vw", md: "300px" }} 
       h={{ base: "100%", md: "100vh" }}></UI.Box>
     
     {/* Navbar container */}
