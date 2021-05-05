@@ -11,6 +11,7 @@ import {
   TableCaption,
   Checkbox,
   CheckboxGroup,
+  Flex
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { query } from "../../../../lib/db";
@@ -26,7 +27,7 @@ const Roster = ({ roster, cid, setPageTitle, setNavMenu }) => {
 
   return (
     <>
-      <Box minHeight="100vh">
+      <Flex direction="column" justify="center" borderRadius="md" m={4} w="full">
         <Box p="10px" color="blue.50" bg="blue.700" p="20px" margin="25px">
           <Text>Instructor settings</Text>
           <Checkbox defaultIsChecked>
@@ -51,7 +52,7 @@ const Roster = ({ roster, cid, setPageTitle, setNavMenu }) => {
             </Tbody>
           </Table>
         </Box>
-      </Box>
+      </Flex>
     </>
   );
 };

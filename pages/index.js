@@ -30,7 +30,7 @@ export default function Home({
   }, []);
 
   return (
-    <Box mt={4} mr={2}>
+    <Box mt={4} ml={{base: 0, md: 4}}>
       {/* <SimpleGrid columns={{sm: 1, lg: 2}} spacing="10px"> */}
       <SimpleGrid columns={{sm: 1, md: 2}} spacing="10px">
         {coursesWithNewAssn.map((course, idx) => (
