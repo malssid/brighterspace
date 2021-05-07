@@ -9,6 +9,7 @@ import {
   AlertIcon,
   Flex
 } from "@chakra-ui/react";
+import Link from 'next/link'
 
 export default function LoginForm({ csrfToken, error }) {
   return (
@@ -38,6 +39,10 @@ export default function LoginForm({ csrfToken, error }) {
             <Input my={4} placeholder="Password" name="password" type="password" />
           <Center><Button bg="blue.800" color="blue.100" type="submit">Sign in</Button></Center>
         </form>
+
+        <Center mt={5}>
+          <Text fontSize={14}>New Here? <Link href="/account/sign-up"><a>Sign up</a></Link> for an account.</Text>
+          </Center>
       </Flex>
     </Center>
   );
