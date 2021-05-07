@@ -16,12 +16,12 @@ function CourseDashboard({active, cid}) {
                     text="Dashboard"
                     active={active === "dashboard" ? true : false}
                 />
-                <Link
+                {/* <Link
                     href={`/course/${cid}/announcements`}
                     icon={<ChatIcon color="gray.500" />}
                     text="Announcements"
                     active={active === "announcements" ? true : false}
-                    />
+                    /> */}
                 <Link 
                     href={`/course/${cid}/roster`} 
                     icon={<ViewIcon color="gray.500" />}
@@ -29,12 +29,12 @@ function CourseDashboard({active, cid}) {
                     active={active === "roster" ? true : false}
                     
                     />
-                <Link
+                {/* <Link
                     href={`/course/${cid}/assignments`}
                     icon={<ViewIcon color="gray.500" />}
                     text="Assignments"
                     active={active === "assignments" ? true : false}
-                />
+                /> */}
                 <Link
                     href={`/course/${cid}/grades`}
                     icon={<ViewIcon color="gray.500" />}
