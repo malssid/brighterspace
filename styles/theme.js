@@ -16,7 +16,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "linear-gradient(14deg, rgba(12,29,52,1) 15%, rgba(32,42,139,1) 75%)",
+        bg: "gray.500",
         height: "100%",
         overflow: "auto"
       },
@@ -29,6 +29,8 @@ const theme = extendTheme({
       }
     },
   },
+  initialColorMode: "light",
+  useSystemColorMode: true,
 });
 
 export default theme;
