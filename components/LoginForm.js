@@ -7,9 +7,9 @@ import {
   Button,
   Alert,
   AlertIcon,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function LoginForm({ csrfToken, error }) {
   return (
@@ -18,15 +18,19 @@ export default function LoginForm({ csrfToken, error }) {
         borderRadius="lg"
         boxShadow="lg"
         bg="blue.50"
-        w={{base: "300px", sm: "400px"}}
+        w={{ base: "300px", sm: "400px" }}
         p={4}
         color="blue.900"
         mb="4"
         direction="column"
         align="center"
       >
-        <Heading size="2xl" fontSize="45px" mb={4}>Login</Heading>
-        <Text align="center">Login with your email and Brighterspace password.</Text>
+        <Heading size="2xl" fontSize="45px" mb={4}>
+          Login
+        </Heading>
+        <Text align="center">
+          Login with your email and Brighterspace password.
+        </Text>
         {error && (
           <Alert status="error">
             <AlertIcon />
@@ -35,14 +39,29 @@ export default function LoginForm({ csrfToken, error }) {
         )}
         <form method="post" action="/api/auth/callback/credentials">
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-            <Input mt={4} placeholder="Username" name="username" type="text" />
-            <Input my={4} placeholder="Password" name="password" type="password" />
-          <Center><Button bg="blue.800" color="blue.100" type="submit">Sign in</Button></Center>
+          <Input mt={4} placeholder="Username" name="username" type="text" />
+          <Input
+            my={4}
+            placeholder="Password"
+            name="password"
+            type="password"
+          />
+          <Center>
+            <Button bg="blue.800" color="blue.100" type="submit">
+              Sign in
+            </Button>
+          </Center>
         </form>
 
         <Center mt={5}>
-          <Text fontSize={14}>New Here? <Link href="/account/sign-up"><a>Sign up</a></Link> for an account.</Text>
-          </Center>
+          <Text fontSize={14}>
+            New Here?{" "}
+            <Link href="/account/sign-up">
+              <a>Sign up</a>
+            </Link>{" "}
+            for an account.
+          </Text>
+        </Center>
       </Flex>
     </Center>
   );

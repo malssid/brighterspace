@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 export default function AnnouncementSettings({ cid, aid, prevBody }) {

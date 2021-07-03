@@ -56,10 +56,10 @@ export async function getServerSideProps(context) {
     [session.user.id, context.query.cid]
   );
 
-  const topic = await query(
-    "SELECT * FROM topic WHERE cid = ? AND tid = ?",
-    [context.query.cid, context.query.tid]
-  );
+  const topic = await query("SELECT * FROM topic WHERE cid = ? AND tid = ?", [
+    context.query.cid,
+    context.query.tid,
+  ]);
 
   return {
     props: {

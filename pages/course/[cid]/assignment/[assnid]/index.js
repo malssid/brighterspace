@@ -96,12 +96,7 @@ export default function Assignment({
       );
     } else {
       return (
-        <Button
-          leftIcon={<ArrowUpIcon />}
-          size="lg"
-          mt={5}
-          isDisabled
-        >
+        <Button leftIcon={<ArrowUpIcon />} size="lg" mt={5} isDisabled>
           Submit/Save
         </Button>
       );
@@ -168,9 +163,7 @@ export default function Assignment({
         <Center color="blue.50" mt={4}>
           {renderInput()}
         </Center>
-        <Center>
-          {renderSubmitBtn()}
-        </Center>
+        <Center>{renderSubmitBtn()}</Center>
         {membership[0].role === 1 && (
           <>
             <Center>
@@ -206,7 +199,7 @@ export default function Assignment({
       </Flex>
     </>
   );
-} 
+}
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);

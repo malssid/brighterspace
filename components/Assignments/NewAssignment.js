@@ -13,10 +13,10 @@ import {
   Textarea,
   Spacer,
   Select,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function NewAssignment({ cid }) {
@@ -27,7 +27,7 @@ export default function NewAssignment({ cid }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [submissiontype, setSubmissionType] = useState("");
-  const duedate = "2021-05-05 00:00:00" // Add state for date/time of the duedate
+  const duedate = "2021-05-05 00:00:00"; // Add state for date/time of the duedate
 
   const refreshData = () => router.replace(router.asPath);
 
@@ -50,7 +50,7 @@ export default function NewAssignment({ cid }) {
         status: "success",
         position: "top",
         isClosable: true,
-      })
+      });
     } else {
       // Display some type of error
     }
@@ -78,7 +78,6 @@ export default function NewAssignment({ cid }) {
             <Textarea
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter your assignment title here"
-              
             />
             <Textarea
               onChange={(e) => setBody(e.target.value)}

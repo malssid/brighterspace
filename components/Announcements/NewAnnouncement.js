@@ -12,10 +12,10 @@ import {
   Button,
   Textarea,
   Spacer,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 /**
@@ -50,7 +50,7 @@ export default function NewAnnouncement({ cid }) {
         status: "success",
         position: "top",
         isClosable: true,
-      })
+      });
     } else {
       // Display some type of error
     }
@@ -59,7 +59,9 @@ export default function NewAnnouncement({ cid }) {
   return (
     <>
       <Box pb="10px">
-        <Button onClick={onOpen} size="md" >Add Announcement</Button>
+        <Button onClick={onOpen} size="md">
+          Add Announcement
+        </Button>
       </Box>
 
       <Modal

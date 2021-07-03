@@ -28,7 +28,7 @@ import { Group, Link as NavLink } from "../../../components/Navbar";
 import NewTopic from "../../../components/CourseContent/NewTopic";
 import TopicCard from "../../../components/CourseContent/TopicCard";
 
-import CourseDashNav from "../../../components/NavMenus/CourseDashboard"
+import CourseDashNav from "../../../components/NavMenus/CourseDashboard";
 
 import { query } from "../../../lib/db";
 
@@ -95,13 +95,8 @@ export default function CourseHome({
       px={4}
       m={4}
       w="full"
-      
     >
-      <SimpleGrid
-        columns={{ base: 1, xl: 2 }}
-        spacingX={6}
-        spacingY={6}
-      >
+      <SimpleGrid columns={{ base: 1, xl: 2 }} spacingX={6} spacingY={6}>
         <Flex
           backgroundColor="blue.700"
           borderRadius="lg"
@@ -114,17 +109,37 @@ export default function CourseHome({
           <Heading textAlign="center" size="4xl" color="blue.50">
             {course.Name}
           </Heading>
-          <Heading textAlign="center" size="md" mt={1} mb={{base: 4}} color="blue.100">
+          <Heading
+            textAlign="center"
+            size="md"
+            mt={1}
+            mb={{ base: 4 }}
+            color="blue.100"
+          >
             {course.Description}
           </Heading>
           {membership[0].role === 1 && (
             <>
               <Divider borderColor="whiteAlpha.500" m="auto" />
-              <Flex mt={{base: 4}} align="center" justify="center" direction="column">
+              <Flex
+                mt={{ base: 4 }}
+                align="center"
+                justify="center"
+                direction="column"
+              >
                 <Heading textAlign="center" size="lg" color="blue.100">
                   Instructor Tools
                 </Heading>
-                <Stack mt={2} align="center" direction={{base: "column", lg:"row", xl:"column", "2xl": "row"}}>
+                <Stack
+                  mt={2}
+                  align="center"
+                  direction={{
+                    base: "column",
+                    lg: "row",
+                    xl: "column",
+                    "2xl": "row",
+                  }}
+                >
                   <NewTopic cid={course.cid} />
                   <NewAnnouncement cid={course.cid} />
                   <NewAssignment cid={course.cid} />{" "}
@@ -155,7 +170,12 @@ export default function CourseHome({
           p={8}
           textAlign="center"
         >
-          <Heading textAlign="center" mb={2} fontSize={{base: "24", sm: "28", md:"36"}} color="blue.50">
+          <Heading
+            textAlign="center"
+            mb={2}
+            fontSize={{ base: "24", sm: "28", md: "36" }}
+            color="blue.50"
+          >
             Announcements
           </Heading>
           <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />
@@ -170,7 +190,12 @@ export default function CourseHome({
           </Stack>
         </Box>
         <Box backgroundColor="blue.700" boxShadow="md" borderRadius="lg" p={8}>
-          <Heading textAlign="center" mb={2} fontSize={{base: "28", md:"40"}} color="blue.50">
+          <Heading
+            textAlign="center"
+            mb={2}
+            fontSize={{ base: "28", md: "40" }}
+            color="blue.50"
+          >
             Assignments
           </Heading>
           <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />
@@ -191,11 +216,15 @@ export default function CourseHome({
           p={8}
           textAlign="center"
         >
-          <Heading textAlign="center" mb={2} fontSize={{base: "24", sm: "28", md:"36"}} color="blue.50">
+          <Heading
+            textAlign="center"
+            mb={2}
+            fontSize={{ base: "24", sm: "28", md: "36" }}
+            color="blue.50"
+          >
             Grades
           </Heading>
           <Divider mt={2} borderColor="whiteAlpha.500" m="auto" />
-          
         </Box>
       </SimpleGrid>
     </Flex>

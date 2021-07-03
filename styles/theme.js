@@ -9,24 +9,24 @@ const theme = extendTheme({
   components: {
     Button: {
       baseStyle: {
-        fontFamily: "Noto Sans"
-      }
-    }
+        fontFamily: "Noto Sans",
+      },
+    },
   },
   styles: {
     global: {
       body: {
         bg: "gray.500",
         height: "100%",
-        overflow: "auto"
+        overflow: "auto",
       },
       html: {
         overflow: "hidden",
-        height: "100%"
+        height: "100%",
       },
       a: {
-        textDecor: "none"
-      }
+        textDecor: "none",
+      },
     },
   },
   initialColorMode: "light",

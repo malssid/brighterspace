@@ -12,7 +12,7 @@ import Navbar from "../components/Navbar";
 function MyApp({ Component, pageProps }) {
   const [pageTitle, setPageTitle] = useState(undefined);
   const [navMenu, setNavMenu] = useState(undefined);
-  
+
   return (
     <p>
       <GoogleFonts href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Noto+Sans&display=swap" />
@@ -23,19 +23,18 @@ function MyApp({ Component, pageProps }) {
       </NextHead>
       <Provider session={pageProps.session}>
         <ChakraProvider theme={theme}>
-
           {/* Reactor as an app specific provider? */}
           <UI.Flex
-                direction={{base: 'column', md: 'row'}}
-                align={{base: 'center', md: 'flex-start'}}
+            direction={{ base: "column", md: "row" }}
+            align={{ base: "center", md: "flex-start" }}
           >
             <Navbar pageTitle={pageTitle}>{navMenu}</Navbar>
-            <Component 
-              setPageTitle={setPageTitle}  
+            <Component
+              setPageTitle={setPageTitle}
               setNavMenu={setNavMenu}
-              {...pageProps} />
+              {...pageProps}
+            />
           </UI.Flex>
-          
         </ChakraProvider>
       </Provider>
     </p>

@@ -6,7 +6,8 @@
     "load": "set -o allexport; source .env.local; set +o allexport;",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "npx prettier --write ."
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.10",

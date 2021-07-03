@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 export default function AssignmentSettings({
@@ -67,7 +67,7 @@ export default function AssignmentSettings({
         status: "success",
         position: "top",
         isClosable: true,
-      })
+      });
     } else {
       // Display some type of error
     }
@@ -92,7 +92,7 @@ export default function AssignmentSettings({
         status: "success",
         position: "top",
         isClosable: true,
-      })
+      });
     } else {
       // Display some type of error
     }

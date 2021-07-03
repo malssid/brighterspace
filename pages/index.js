@@ -30,9 +30,9 @@ export default function Home({
   }, []);
 
   return (
-    <Box mt={4} ml={{base: 0, md: 4}}>
+    <Box mt={4} ml={{ base: 0, md: 4 }}>
       {/* <SimpleGrid columns={{sm: 1, lg: 2}} spacing="10px"> */}
-      <SimpleGrid columns={{sm: 1, md: 2}} spacing="10px">
+      <SimpleGrid columns={{ sm: 1, md: 2 }} spacing="10px">
         {coursesWithNewAssn.map((course, idx) => (
           <CourseCard
             key={idx}
@@ -94,7 +94,7 @@ export async function getServerSideProps(context) {
     "select * from(select courses.Name, courses.cid, courses.Description, courses.Term, count(assignments.cid) as numAssn from courses left join assignments on courses.cid = assignments.cid, memberships where memberships.pid = ? AND memberships.cid = courses.cid group by courses.cid) as noAssn where noAssn.numAssn = 0",
     [session.user.id]
   );
-  
+
   return {
     props: {
       coursesWithNewAssn,
