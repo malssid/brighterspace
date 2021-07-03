@@ -31,7 +31,7 @@ const Roster = ({ roster, cid, setPageTitle, setNavMenu }) => {
         m={4}
         w="full"
       >
-        <Box p="10px" color="blue.50" bg="blue.700" p="20px" margin="25px">
+        <Box color="blue.50" bg="blue.700" p="20px" margin="25px">
           <Text>Instructor settings</Text>
           <Checkbox defaultIsChecked>
             Allow students to view the class roster
