@@ -9,6 +9,7 @@ const courselist = ({ courses, session }) => {
     <Flex direction="column" align="center">
       {courses.map((course) => (
         <CourseCard
+          key={course.cid}
           id={course.cid}
           name={course.Name}
           desc={course.Description}

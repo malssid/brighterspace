@@ -28,7 +28,6 @@ const Roster = ({ roster, cid, setPageTitle, setNavMenu }) => {
       <Flex
         direction="column"
         justify="center"
-        borderRadius="md"
         m={4}
         w="full"
       >

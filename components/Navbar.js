@@ -31,10 +31,9 @@ export function Search(props) {
       </UI.Text>
 
       <UI.InputGroup>
-        <UI.InputLeftElement
-          pointerEvents="none"
-          children={<SearchIcon color="gray.300" />}
-        />
+        <UI.InputLeftElement pointerEvents="none">
+          <SearchIcon color="gray.300" />
+        </UI.InputLeftElement>
         <UI.Input
           // m="10px"
           borderColor="whiteAlpha.400"
