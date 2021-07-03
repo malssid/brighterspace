@@ -24,3 +24,5 @@ jobs:
         with:
           eslint: true
           prettier: true
+          auto_fix: true
+          git_email: "ci-cd@ramhacks.org"
