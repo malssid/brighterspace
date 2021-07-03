@@ -25,12 +25,7 @@ const Roster = ({ roster, cid, setPageTitle, setNavMenu }) => {
 
   return (
     <>
-      <Flex
-        direction="column"
-        justify="center"
-        m={4}
-        w="full"
-      >
+      <Flex direction="column" justify="center" m={4} w="full">
         <Box color="blue.50" bg="blue.700" p="20px" margin="25px">
           <Text>Instructor settings</Text>
           <Checkbox defaultIsChecked>
