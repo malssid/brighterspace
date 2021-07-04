@@ -28,7 +28,7 @@ export default async function (req, res) {
           req.body.body,
           req.body.submissiontype,
           req.body.cid,
-          req.body.assnid
+          req.body.assnid,
         ]
       );
 

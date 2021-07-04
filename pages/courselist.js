@@ -1,15 +1,15 @@
 import { Flex } from "@chakra-ui/react";
 import CourseCard from "../components/CourseCard";
-import { getSession } from 'next-auth/client'
+import { getSession } from "next-auth/client";
 
-
-import { query } from "../lib/db"
+import { query } from "../lib/db";
 
 const courselist = ({ courses, session }) => {
   return (
     <Flex direction="column" align="center">
       {courses.map((course) => (
         <CourseCard
+          key={course.cid}
           id={course.cid}
           name={course.Name}
           desc={course.Description}
@@ -21,15 +21,16 @@ const courselist = ({ courses, session }) => {
 };
 
 export async function getServerSideProps(context) {
-
-  const session = await getSession(context)
-  const courses = await query("SELECT courses.cid as cid, Name, Description, Term FROM memberships, courses WHERE memberships.pid = ? AND memberships.cid = courses.cid", 
-    [session.user.id])
+  const session = await getSession(context);
+  const courses = await query(
+    "SELECT courses.cid as cid, Name, Description, Term FROM memberships, courses WHERE memberships.pid = ? AND memberships.cid = courses.cid",
+    [session.user.id]
+  );
 
   return {
     props: {
       courses,
-      session
+      session,
     },
   };
 }

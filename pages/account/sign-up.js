@@ -1,4 +1,4 @@
-import {Flex, Box} from "@chakra-ui/react"
+import { Flex, Box } from "@chakra-ui/react";
 import SignUpForm from "../../components/SignUpForm";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -15,16 +15,10 @@ export default function SignUp(props) {
   }, [loading]);
 
   return (
-    <Flex
-      justify="center"
-      align="center"
-      width="100vw"
-      height="100vh"
-      mt={-5}
-    >
+    <Flex justify="center" align="center" width="100vw" height="100vh" mt={-5}>
       <Box>
         <SignUpForm error={router.query.error} />
       </Box>
-    </Flex>)
+    </Flex>
+  );
 }
-

@@ -12,7 +12,6 @@ import {
 
 import About from "./About";
 
-
 export function Search(props) {
   return (
     <UI.Box
@@ -32,10 +31,9 @@ export function Search(props) {
       </UI.Text>
 
       <UI.InputGroup>
-        <UI.InputLeftElement
-          pointerEvents="none"
-          children={<SearchIcon color="gray.300" />}
-        />
+        <UI.InputLeftElement pointerEvents="none">
+          <SearchIcon color="gray.300" />
+        </UI.InputLeftElement>
         <UI.Input
           // m="10px"
           borderColor="whiteAlpha.400"
@@ -69,29 +67,28 @@ export function Group(props) {
 }
 
 export function Link(props) {
-
   // Non-next link buttons
-  if(!props.href){
+  if (!props.href) {
     return (
       <UI.Box mb={2}>
         <UI.Button
-            onClick={props.onClick}
-            boxShadow="lg"
-            w="100%"
-            leftIcon={props.icon || <AttachmentIcon color="gray.500" />}
-            variant="ghost"
-            color="gray.300"
-            justifyContent="flex-start"
-            _hover={{
-              backgroundColor: props.active ? "gray.600" : "gray.700",
-            }}
-            fontWeight={props.active ? "600" : 300}
-            backgroundColor={props.active ? "gray.600" : "whiteAlpha.50"}
+          onClick={props.onClick}
+          boxShadow="lg"
+          w="100%"
+          leftIcon={props.icon || <AttachmentIcon color="gray.500" />}
+          variant="ghost"
+          color="gray.300"
+          justifyContent="flex-start"
+          _hover={{
+            backgroundColor: props.active ? "gray.600" : "gray.700",
+          }}
+          fontWeight={props.active ? "600" : 300}
+          backgroundColor={props.active ? "gray.600" : "whiteAlpha.50"}
         >
           {props.text}
         </UI.Button>
-    </UI.Box>
-    )
+      </UI.Box>
+    );
   }
 
   // Next link buttons
@@ -129,76 +126,74 @@ export default function Navbar(props) {
 
   return (
     <>
-    {/* Spacing between page content and fixed navbar  */}
-    <UI.Box 
-      minWidth={{ base: "100vw", md: "300px" }} 
-      h={{ base: "100%", md: "100vh" }}></UI.Box>
-    
-    {/* Navbar container */}
-    <UI.Box
-      minWidth={{ base: "100vw", md: "300px" }}
-      boxShadow="lg"
-      marginRight={{ base: "0", md: "20px" }}
-      bgColor="blackAlpha.600"
-      // borderTopRightRadius={{ base: "0px", md: "35px" }}
-      borderBottomRightRadius={{ base: "0px", md: "35px" }}
-      p="5"
-      position={{ base: "relative", md: "fixed" }}
-      zIndex="100"
-    >
-      <UI.Flex direction="column">
-        <UI.Box align="center">
-          {/* Application name */}
-          <UI.HStack justifyContent="space-between">
-            <UI.Box>
-              <NextLink href="/">
-                <a>
-                  <UI.Image
-                    src="/brighterspacelogo.svg"
-                    alt="Brighterspace"
-                    w={{ base: "40vw", md: "250px" }}
-                  />
-                </a>
-              </NextLink>
-            </UI.Box>
+      {/* Spacing between page content and fixed navbar  */}
+      <UI.Box
+        minWidth={{ base: "100vw", md: "300px" }}
+        h={{ base: "100%", md: "100vh" }}
+      ></UI.Box>
 
-            <UI.Box>
-              <UI.IconButton
-                display={{ base: "block", md: "none" }}
-                aria-label="Open menu"
-                fontSize="30px"
-                color="blue.200"
-                variant="ghost"
-                icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                onClick={onToggle}
-                colorScheme="whiteAlpha"
-              />
-            </UI.Box>
-          </UI.HStack>
+      {/* Navbar container */}
+      <UI.Box
+        minWidth={{ base: "100vw", md: "300px" }}
+        boxShadow="lg"
+        marginRight={{ base: "0", md: "20px" }}
+        bgColor="blackAlpha.600"
+        // borderTopRightRadius={{ base: "0px", md: "35px" }}
+        borderBottomRightRadius={{ base: "0px", md: "35px" }}
+        p="5"
+        position={{ base: "relative", md: "fixed" }}
+        zIndex="100"
+      >
+        <UI.Flex direction="column">
+          <UI.Box align="center">
+            {/* Application name */}
+            <UI.HStack justifyContent="space-between">
+              <UI.Box>
+                <NextLink href="/">
+                  <a>
+                    <UI.Image
+                      src="/brighterspacelogo.svg"
+                      alt="Brighterspace"
+                      w={{ base: "40vw", md: "250px" }}
+                    />
+                  </a>
+                </NextLink>
+              </UI.Box>
 
-          {/* <UI.Heading>{props.pageTitle}</UI.Heading> */}
-        </UI.Box>
+              <UI.Box>
+                <UI.IconButton
+                  display={{ base: "block", md: "none" }}
+                  aria-label="Open menu"
+                  fontSize="30px"
+                  color="blue.200"
+                  variant="ghost"
+                  icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                  onClick={onToggle}
+                  colorScheme="whiteAlpha"
+                />
+              </UI.Box>
+            </UI.HStack>
 
-        {/* PageTitle */}
-        <UI.Box 
-          display={{ base: isOpen ? "block" : "none", md: "block" }}
-          // marginTop={props.pageTitle ? 15 : 0}
-          // align="center"
+            {/* <UI.Heading>{props.pageTitle}</UI.Heading> */}
+          </UI.Box>
+
+          {/* PageTitle */}
+          <UI.Box
+            display={{ base: isOpen ? "block" : "none", md: "block" }}
+            // marginTop={props.pageTitle ? 15 : 0}
+            // align="center"
           >
+            {/* <UI.Heading size="md" color="whiteAlpha.800">{props.pageTitle}</UI.Heading> */}
+          </UI.Box>
 
-          {/* <UI.Heading size="md" color="whiteAlpha.800">{props.pageTitle}</UI.Heading> */}
-        </UI.Box>
+          {/* Children passed to the navbar will go here... */}
+          <UI.Box display={{ base: isOpen ? "block" : "none", md: "block" }}>
+            {props.children}
+          </UI.Box>
+        </UI.Flex>
+      </UI.Box>
 
-        {/* Children passed to the navbar will go here... */}
-        <UI.Box display={{ base: isOpen ? "block" : "none", md: "block" }}>
-          {props.children}
-        </UI.Box>
-
-      </UI.Flex>
-
-    </UI.Box>
-
-    <About onClick={() => setCreditsVisibility(true)} />
+      <About onClick={() => setCreditsVisibility(true)} />
     </>
   );
 }

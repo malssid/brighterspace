@@ -1,4 +1,4 @@
-import {Flex, Box} from "@chakra-ui/react"
+import { Flex, Box } from "@chakra-ui/react";
 import LoginForm from "../../components/LoginForm";
 import { getCsrfToken, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
@@ -15,17 +15,12 @@ export default function LoginPage(props) {
   }, [loading]);
 
   return (
-    <Flex
-      justify="center"
-      align="center"
-      width="100vw"
-      height="100vh"
-      mt={-5}
-    >
+    <Flex justify="center" align="center" width="100vw" height="100vh" mt={-5}>
       <Box>
         <LoginForm error={router.query.error} csrfToken={props.csrfToken} />
       </Box>
-    </Flex>)
+    </Flex>
+  );
 }
 
 export async function getServerSideProps(context) {

@@ -9,26 +9,28 @@ const theme = extendTheme({
   components: {
     Button: {
       baseStyle: {
-        fontFamily: "Noto Sans"
-      }
-    }
+        fontFamily: "Noto Sans",
+      },
+    },
   },
   styles: {
     global: {
       body: {
-        bg: "linear-gradient(14deg, rgba(12,29,52,1) 15%, rgba(32,42,139,1) 75%)",
+        bg: "gray.500",
         height: "100%",
-        overflow: "auto"
+        overflow: "auto",
       },
       html: {
         overflow: "hidden",
-        height: "100%"
+        height: "100%",
       },
       a: {
-        textDecor: "none"
-      }
+        textDecor: "none",
+      },
     },
   },
+  initialColorMode: "light",
+  useSystemColorMode: true,
 });
 
 export default theme;

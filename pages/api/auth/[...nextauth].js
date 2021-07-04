@@ -1,8 +1,8 @@
-import NextAuth from "next-auth"
-import Providers from "next-auth/providers"
-import { db, query } from "../../../lib/db"
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
+import { db, query } from "../../../lib/db";
 
-import shajs from "sha.js"
+import shajs from "sha.js";
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -16,41 +16,44 @@ export default NextAuth({
 
     Providers.Credentials({
       // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: 'Brigherspace Credentials',
+      name: "Brigherspace Credentials",
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        username: { label: "Email", type: "text", placeholder: "rhody@uri.edu" },
-        password: {  label: "Password", type: "password" }
+        username: {
+          label: "Email",
+          type: "text",
+          placeholder: "rhody@uri.edu",
+        },
+        password: { label: "Password", type: "password" },
       },
-     async authorize(credentials) {
-
+      async authorize(credentials) {
         // @TODO - add salt to the hash
-        credentials.password = shajs('sha256').update(credentials.password).digest('hex')
+        credentials.password = shajs("sha256")
+          .update(credentials.password)
+          .digest("hex");
 
-        console.log(credentials.password)
+        console.log(credentials.password);
 
-        const results = await query("SELECT * FROM people WHERE Email = ? AND Password = ? LIMIT 1", [
-          credentials.username,
-          credentials.password
-        ])
+        const results = await query(
+          "SELECT * FROM people WHERE Email = ? AND Password = ? LIMIT 1",
+          [credentials.username, credentials.password]
+        );
 
-        console.log("Logged in user")
-        console.log(results)
+        console.log("Logged in user");
+        console.log(results);
 
-        if(results.length === 0){
-          return false
+        if (results.length === 0) {
+          return false;
         }
         return {
           id: results[0].pid,
           name: results[0].First_name + " " + results[0].Last_name,
-          email: results[0].Email
-        }
-      
-      }
-    })
-  
+          email: results[0].Email,
+        };
+      },
+    }),
   ],
   // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
   // https://next-auth.js.org/configuration/databases
@@ -72,7 +75,6 @@ export default NextAuth({
   // a separate secret is defined explicitly for encrypting the JWT.
   // secret: process.env.SECRET,
   secret: "seceret",
-  
 
   session: {
     // Use JSON Web Tokens for session instead of database sessions.
@@ -94,7 +96,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
-    secret: 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw',
+    secret: "INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw",
     // Set to true to use encryption (default: false)
     // encryption: true,
     // You can define your own encode/decode functions for signing and encryption
@@ -109,7 +111,7 @@ export default NextAuth({
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
   pages: {
-    signIn: '/account/sign-in',  // Displays signin buttons
+    signIn: "/account/sign-in", // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
@@ -130,14 +132,14 @@ export default NextAuth({
       //  ...so we set "user" param of "token" to object from "authorize"...
       //  ...and return it...
       user && (token.user = user);
-      return Promise.resolve(token)   // ...here
+      return Promise.resolve(token); // ...here
     },
     session: async (session, user, sessionToken) => {
-        //  "session" is current session object
-        //  below we set "user" param of "session" to value received from "jwt" callback
-        session.user = user.user;
-        return Promise.resolve(session)
-  }
+      //  "session" is current session object
+      //  below we set "user" param of "session" to value received from "jwt" callback
+      session.user = user.user;
+      return Promise.resolve(session);
+    },
   },
 
   // Events are useful for logging
@@ -146,4 +148,4 @@ export default NextAuth({
 
   // Enable debug messages in the console if you are having problems
   debug: true,
-})
+});

@@ -9,14 +9,20 @@ const AssignmentCard = ({ isInstructor, assignment }) => {
       boxShadow="lg"
       bg="blue.50"
       p={4}
-      w={{base: "90%", md:"80%", xl: "70%"}}
+      w={{ base: "90%", md: "80%", xl: "70%" }}
       color="blue.900"
       mb="4"
       // height="150px">
     >
       {isInstructor === 1 && (
         <Flex align="center" direction="column">
-          <AssignmentSettings cid={assignment.cid} assnid={assignment.assnid} prevTitle={assignment.title} prevBody={assignment.body} prevSubmissiontype={assignment.submissiontype}/>
+          <AssignmentSettings
+            cid={assignment.cid}
+            assnid={assignment.assnid}
+            prevTitle={assignment.title}
+            prevBody={assignment.body}
+            prevSubmissiontype={assignment.submissiontype}
+          />
         </Flex>
       )}
       <NextLink

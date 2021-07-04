@@ -11,24 +11,22 @@ import {
   TableCaption,
   Checkbox,
   CheckboxGroup,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { query } from "../../../../lib/db";
 
-import CourseDashNav from "../../../../components/NavMenus/CourseDashboard"
-
+import CourseDashNav from "../../../../components/NavMenus/CourseDashboard";
 
 const Roster = ({ roster, cid, setPageTitle, setNavMenu }) => {
-
   useEffect(() => {
     setNavMenu(<CourseDashNav cid={cid} active="roster" />);
   }, []);
 
   return (
     <>
-      <Flex direction="column" justify="center" borderRadius="md" m={4} w="full">
-        <Box p="10px" color="blue.50" bg="blue.700" p="20px" margin="25px">
+      <Flex direction="column" justify="center" m={4} w="full">
+        <Box color="blue.50" bg="blue.700" p="20px" margin="25px">
           <Text>Instructor settings</Text>
           <Checkbox defaultIsChecked>
             Allow students to view the class roster
